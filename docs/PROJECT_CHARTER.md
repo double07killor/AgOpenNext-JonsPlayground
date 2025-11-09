@@ -1,6 +1,6 @@
 ---
 title: AgOpenNext Project Charter
-version: 0.6.0
+version: 0.6.2
 status: Draft for Community Review
 authors:
   - Jon Fortney
@@ -11,15 +11,15 @@ reviewers:
 approvers:
   - TBD
 created: 2025-10-20
-last_reviewed: 2025-11-08
+last_reviewed: 2025-11-09
 review_cycle: Ad-hoc when scope or assumptions shift materially
 notes: Markdown copy is canonical; add the Google Docs link when a mirrored version exists.
 ---
 
 # AgOpenNext Project Charter
 
-Metadata for this charter lives in the YAML front-matter block above; keep those values in sync with ownership, review,
-and lifecycle expectations from the governance policy.
+Metadata for this charter lives in the YAML front-matter block above; keep those values in sync with the ownership,
+review, and lifecycle expectations outlined in the governance policy.
 
 ## 1. Executive Summary, Mission & Vision
 
@@ -29,8 +29,8 @@ Its purpose isn’t to add features, but to rebuild the foundation—keeping tod
 decade of open, sustainable innovation.
 
 **Mission:**  
-Build a modern, modular guidance platform that preserves v6 reliability while eliminating technical debt and enabling
-open, frictionless contribution.
+Build a modern, modular guidance platform that preserves v6 reliability, eliminates technical debt, and enables open,
+frictionless contributions.
 
 **Vision:**  
 A community-driven precision agriculture platform that:
@@ -47,25 +47,22 @@ Core principle: **Rewrite the foundation. Preserve the functionality. Unlock the
 
 - **Foundation first:** Modernize runtime, architecture, and tooling before expanding feature scope.
 - **Parity with intent:** Document all deviations from v6 behavior in ADRs, including validation and mitigation plans.
-- **Modular and extensible:** Maintain clear architectural seams that allow plugins and extensions without modifying
-  Core.
+- **Modular and extensible:** Maintain clear architectural seams that allow extending the functionality flexibly.
 - **Inclusive contribution model:** Keep workflows open and reproducible across Windows and Linux, avoiding proprietary
   dependencies.
 - **Deterministic validation:** Use automated, replayable tests to detect regressions before they reach the field.
 - **Future-proof design:** Architecture anticipates future extensions without forcing premature implementation.
 
 ## 3. Goals & Success Criteria
-
-| Goal                            | Success Criteria                                                                                                                                                                                    | Priority    |
-|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| **G1 — Functional Parity**      | Pass all critical v6 field operation test suites; preserve essential guidance accuracy, GNSS processing, autosteer behavior. Any intentional retirements documented in ADRs with operator approval. | P0-Critical |
-| **G2 — Cross-Platform Support** | Unified codebase for Windows and Linux builds with identical behavior. Non-gating stretch targets: Android (P2) and iOS Companion (P3). All builds must install cleanly and pass smoke tests.       | P0-Critical |
-| **G3 — Modern UI**              | Avalonia UI achieves ≥30 FPS on reference hardware; functionally complete WinForms replacement                                                                                                      | P0-Critical |
-| **G4 — Test Infrastructure**    | Unit tests ≥80 % coverage; integration tests 100 % on critical paths; all pass in CI before merge.                                                                                                  | P0-Critical |
-| **G5 — Architectural Clarity**  | Clean separation: business logic, hardware abstraction, presentation; documented APIs                                                                                                               | P0-Critical |
-| **G6 — Developer Experience**   | New contributor setup <1 hour on Windows or Linux; contribution checklists align with CI expectations.                                                                                              | P1-High     |
-| **G7 — Community Validation**   | Field testing by ≥20 operators across ≥3 continents prior to general availability                                                                                                                   | P1-High     |
-
+| Goal                            | Success Criteria                                                                                                                                                                                      | Priority    |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| **G1 — Functional Parity**      | Pass all critical v6 field operation test suites; preserve essential guidance accuracy, GNSS processing, autosteer behavior. Any intentional retirements documented in ADRs with operator approval.   | P0-Critical |
+| **G2 — Cross-Platform Support** | Unified codebase for Windows, Linux, and ARM64 builds with identical behavior. Non-gating stretch targets: Android (P2) and iOS Companion (P3). All builds must install cleanly and pass smoke tests. | P0-Critical |
+| **G3 — Modern UI**              | Avalonia UI achieves ≥30 FPS on reference hardware; functionally complete WinForms replacement.                                                                                                       | P0-Critical |
+| **G4 — Test Infrastructure**    | Unit tests ≥80 % coverage; integration tests 100 % on critical paths; all pass in CI before merge.                                                                                                    | P0-Critical |
+| **G5 — Architectural Clarity**  | Clean separation: business logic, hardware abstraction, presentation; documented APIs.                                                                                                                | P0-Critical |
+| **G6 — Developer Experience**   | New contributor setup <1 hour on Windows or Linux; contribution checklists align with CI expectations.                                                                                                | P1-High     |
+| **G7 — Community Validation**   | Field testing by ≥20 operators across ≥3 continents prior to general availability.                                                                                                                    | P1-High     |
 ---
 
 ## 4. Foundation Phase Boundaries (Non-Goals/Out of Scope for v1.0)
@@ -79,8 +76,9 @@ These areas are not part of the official GA scope but remain supported by archit
 - **Mobile clients:** Android P2; iOS companion P3.
 - **VR/AR or fleet tools:** Deferred until post-validation.
 - **CAN bus full implementation:** Architecture supports it; full feature set deferred post-GA.
-- **USB serial connections:** May be deprecated in favor of UDP-based communication.
-- **Data migration:** Limited to published tooling *(v5 and earlier: published migration tooling only)*.
+- **Direct USB serial connections for control modules:** May be deprecated in favor of UDP-based communication. Serial
+  support for GNSS receivers remains in scope.
+- **Data migration:** Limited support for v5 and earlier via published tooling only.
 
 **Rationale:** Focused scope ensures a stable, modern core while keeping paths open for future expansion.
 
@@ -92,7 +90,8 @@ AgOpenNext targets the most recent stable combination of **.NET** and **Avalonia
 
 - Develop on the latest **.NET** version fully supported by the current **Avalonia** release.
 - Upgrade only after CI passes and compatibility with existing modules is confirmed.
-- If Avalonia lags runtime support, remain on the last compatible .NET version until parity returns.
+- If Avalonia does not support the current .NET version, use the most recent compatible .NET version until support is
+  available.
 
 ### 5.2 In Scope
 
@@ -103,23 +102,19 @@ AgOpenNext targets the most recent stable combination of **.NET** and **Avalonia
   design).
 - Modern graphics rendering via Avalonia (OpenGL/Vulkan).
 
-**Core Functionality (v6 Parity):**
-
-- GNSS integration (NTRIP, NMEA via UDP/serial) and autosteer guidance (AB lines, curves, contours, pivot).
-- Implement control (sections, rate, tramlines), field/boundary management, and vehicle calibration.
-- Data recording, telemetry hooks, and PGN compatibility for legacy hardware modules.
-
-**AgIO (Hardware Abstraction):**
-
-- Serial and UDP protocols, GNSS receivers using open formats (NMEA, UBX, RTCM), and IMU/heading sensors.
-- Implement control hardware (Arduino, Teensy, custom PCBs).
-- CAN bus architecture defined; implementation may follow post-GA.
-- Process boundaries under review during architecture phase; interface contracts defined regardless.
+**Functionality (v6 Parity):**
+- AgIO Hardware Abstraction:
+    - Serial and UDP IO for hardware communication
+    - GNSS integration (NMEA parsing, NTRIP client)
+    - PGN-based communication with hardware modules
+- Field management, boundary management, and data recording
+- Autosteer guidance (AB lines, curves, contours, pivot, U turns)
+- Implement control (sections, rate, tramlines) and vehicle calibration
 
 **Architecture & Communication:**
-
-- Core guidance refactor isolating business logic, simulation hooks, and deterministic behavior.
-- Modernized AOG-Link V1 with backward compatibility for AOG-Link V0 via PGN.
+- Clear separation of concerns across business logic, hardware, and UI layers.
+- Well-defined interfaces supporting parallel development, comprehensive testing, and maintainability.
+- Loosely-coupled components enabling simulation, validation, and future extensibility.
 
 **User Interface:**
 
@@ -158,31 +153,37 @@ For the full governance model and amendment procedures, refer to the linked docu
 
 ## 7. Key Deliverables
 
-| ID     | Deliverable                       | Description                                                                        | Acceptance Criteria                                           |
-|--------|-----------------------------------|------------------------------------------------------------------------------------|---------------------------------------------------------------|
-| **D1** | Core Library                      | Cross-platform business logic (.NET) for GNSS, guidance, and field management.     | Unit tests ≥80%; API docs complete.                           |
-| **D2** | AgIO Service/Hardware Abstraction | Hardware interface layer for Windows/Linux handling serial, UDP, CAN, and sensors. | All v6 hardware operational; Linux service validated.         |
-| **D3** | Avalonia UI                       | Cross-platform desktop interface replacing WinForms.                               | Functional v6 parity; ≥30 FPS on reference hardware.          |
-| **D4** | Packaging Matrix                  | Windows installers (P0), Linux packages (P1). Android APK (P2), iOS Companion (P3) | Clean install and smoke tests pass.                           |
-| **D5** | Test Suites                       | Automated unit, integration, and simulated field tests.                            | 100 % of critical v6 field scenarios pass.                    |
-| **D6** | Documentation                     | Architecture, API, operator, and contributor docs.                                 | Published to docs.agopengps.com; community reviewed.          |
-| **D7** | Migration Toolkit                 | Tools for v6 → Next data migration.                                                | User settings, boundaries, and configs transfer successfully. |
+Deliverables follow a foundation-first progression: contracts → logic → infrastructure → presentation → delivery →
+quality → documentation.
+
+| ID     | Deliverable                      | Description                                                                                             | Acceptance Criteria                                                     |
+|--------|----------------------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| **D1** | Interface Specifications              | Documented interface contracts and APIs for all major components (business logic, hardware, UI bridge). | All interfaces documented; ADR approval; enables parallel development.  |
+| **D2** | Guidance & Field Management      | Cross-platform business logic (.NET) for guidance algorithms, field management, and implement control.  | Unit tests ≥80%; integration with D1 interfaces validated.              |
+| **D3** | AgIO Hardware Abstraction Layer  | Hardware interface layer for Windows, Linux, and ARM64 handling serial, UDP, and sensors.               | All v6 hardware operational; cross-platform service validated.          |
+| **D4** | Avalonia UI                      | Cross-platform desktop interface replacing WinForms with full configuration and field display.          | Functional v6 parity; ≥30 FPS on reference hardware.                    |
+| **D5** | Packaging & Distribution         | Platform-specific packages: Windows installers (P0), Linux packages (P1), Android APK (P2), iOS (P3).   | Clean install and smoke tests pass on all P0/P1 platforms.              |
+| **D6** | Test Suites                      | Automated unit, integration, and field scenario replay tests with CI/CD integration.                    | 100% of critical v6 field scenarios pass; ≥80% code coverage.           |
+| **D7** | Documentation                    | Architecture docs, API references, operator guides, and contributor onboarding materials.               | Published and community reviewed; supports <1hr contributor setup.      |
+| **D8** | Migration Toolkit           | Automated tools for v6 → Next data migration with validation and rollback support.                      | User settings, fields, boundaries, and vehicle configs migrate cleanly. |
 
 ---
 
 ## 8. Risks & Mitigations
 
-| ID | Risk                                         | Likelihood | Impact   | Mitigation / Contingency                                                      |
-|----|----------------------------------------------|------------|----------|-------------------------------------------------------------------------------|
-| R1 | Linux/ARM64 graphics performance issues.     | Medium     | High     | Benchmark early; software rendering fallback; delay ARM64 GA if needed.       |
-| R2 | GNSS/device behavior differs by OS.          | Medium     | High     | Standardize on open formats; expand AgIO adapters; document quirks.           |
-| R3 | Volunteer time fluctuates.                   | High       | Critical | Keep scope small; rotate ownership; acknowledge contributions.                |
-| R4 | Feature creep diverts focus.                 | High       | High     | Track extras as plugin or post-GA ideas; enforce ADR boundaries.              |
-| R5 | v6 → Next migration regressions.             | Low        | High     | Build migration tools early; support reversible imports.                      |
-| R6 | UI/UX changes frustrate operators.           | Medium     | High     | Gather feedback; preserve familiar workflows; document differences.           |
-| R7 | CI/CD instability or cost.                   | Low        | Medium   | Use open runners; cache deps; minimize test matrix complexity.                |
-| R8 | Hardware variability complicates validation. | Medium     | Medium   | Encourage diverse testing; log hardware metadata; prioritize reproducibility. |
-
+Risks sorted by priority (Impact × Likelihood):
+| ID  | Risk                                            | Likelihood | Impact   | Mitigation / Contingency                                                                                        |
+|-----|-------------------------------------------------|------------|----------|-----------------------------------------------------------------------------------------------------------------|
+| R1  | Volunteer time fluctuates.                      | High       | Critical | Keep scope small; rotate ownership; acknowledge contributions.                                                  |
+| R2  | Key contributor departure or burnout.           | Medium     | Critical | Document tribal knowledge; cross-train on critical areas; distribute architectural knowledge; "bus factor" > 2. |
+| R3  | Project timeline extends causing momentum loss. | High       | High     | Set realistic milestones; celebrate incremental progress; maintain visible roadmap; accept delays openly.       |
+| R4  | Feature creep diverts focus.                    | High       | High     | Track extras as plugin or post-GA ideas; enforce ADR boundaries.                                                |
+| R5  | AI-assisted code reduces maintainability.       | Medium     | High     | Mandatory code review; require documentation; enforce architectural patterns; pair AI with expertise.           |
+| R6  | Community fragmentation or competing fork.      | Medium     | High     | Transparent ADR process; consensus-seeking governance; address conflicts early; acknowledge valid concerns.     |
+| R7  | Breaking changes alienate v6 user base.         | Medium     | High     | Extensive field testing (G7); migration guides; maintain compatibility layer where feasible; phased rollout.    |
+| R8  | GNSS/device behavior differs by OS.             | Medium     | High     | Standardize on open formats; expand hardware abstraction; document quirks; cross-platform testing.              |
+| R9  | Dependency vulnerabilities or abandonment.      | Medium     | Medium   | Monitor dependency health; maintain abstraction layers; evaluate alternatives; contribute upstream.             |
+| R10 | Test coverage doesn't catch field edge cases.   | Medium     | Medium   | Diverse field testing (G7); replay captured data; involve operators in test design; maintain beta program.      |
 ---
 
 ## 9. Migration & Transition
@@ -197,7 +198,7 @@ For the full governance model and amendment procedures, refer to the linked docu
 ## 10. Success Measures
 
 - **Functional parity:** 100 % of critical v6 features working in real field use.
-- **Cross-platform reliability:** Windows (P0) and Linux (P1) stable; ARM64 verified post-GA.
+- **Cross-platform reliability:** Windows, Linux, and ARM64 builds stable and validated.
 - **Field validation:** ≥20 operators across ≥3 continents.
 - **Build quality:** ≥95 % CI pass rate; <5 critical bugs at RC.
 - **Adoption:** Operators migrate from v6 voluntarily due to stability and usability gains.
@@ -270,6 +271,8 @@ repository.
 
 | Version | Date       | Changes                                                                                                                                                                                                              | Author               | PR / Issue |
 |---------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------|------------|
+| 0.6.2   | 2025-11-09 | Restructured deliverables (D1=Interface Specs, foundation-first order), enhanced risk assessment (10 prioritized risks including AI maintainability, contributor burnout, timeline delays), clarified LTS policy, added ARM64 to P0 cross-platform support, removed redundant "core" terminology, improved architectural scope clarity, fixed terminology consistency. | Markus               |            |
+| 0.6.1   | 2025-11-09 | Fix formatting in PROJECT_CHARTER.md  | Markus               |            |
 | 0.6.0   | 2025-11-08 | Back to Markdown for Github, even more compact at 246 lines, cut out redundant fat                                                                                                                                   | Jon Fortney          |            |
 | 0.5.0   | 2025-11-06 | Compact Edition: Condensed from 673 to 370 lines (~45% reduction) for easier reading and sharing; preserved all essential sections and critical information; streamlined tables and explanations; removed redundancy | Markus               |            |
 | 0.4.0   | 2025-10-24 | Major rewrite for clarity and realism: simplified governance, reframed risks, modernized mission and vision to reflect community-led development.                                                                    | Nexus Team (Fortney) |            |
@@ -290,7 +293,9 @@ They represent naming, platform, and structural decisions that are not yet final
 | **First GA Release Name**         | Determining what to call the first general-availability release: continue using the codename (*AgOpenNext v1.0*) or formally resume the legacy naming as **AgOpenGPS v7.0** to maintain continuity with previous versions.                            | Community leaning toward **AgOpenGPS v7.0** to signal a direct, modern continuation of the AgOpenGPS line. |
 | **Domain Terminology**            | What to call individual core domains—built-in and community. “Modules” currently refers to hardware PCBs; “plugins” suits community extensions; “blocks” is also used informally. Architectural boundaries are defined, but naming remains undecided. | Decision pending; may standardize through early ADRs.                                                      |
 | **Runtime Version Policy**        | Defining the target policy for **.NET** and **Avalonia** versions (latest stable vs LTS). Current practice is “latest stable combination verified by CI.”                                                                                             | Ongoing; documented in §5.1.                                                                               |
-| **Headless / Remote UI Strategy** | How to handle headless operation and remote UIs. Android is popular as a first-class runtime; Android/iOS companions may leverage the existing gRPC bridge for lightweight remote control.                                                            | Architectural support in place; implementation priority TBD.                                               |
+| **Headless / Remote UI Strategy** | How to handle headless operation and remote UIs. Android is popular as a first-class runtime; Android/iOS companions may leverage a UI-bridge interface for lightweight remote control.                                                               | Architectural support in place; implementation priority TBD.                                               |
+| **AgIO Naming / Scope**           | Decide whether the hardware abstraction layer should retain the historical name **AgIO**, be renamed to a more generic “Hardware Abstraction,” or formally adopt **AgIO Hardware Abstraction**. Impacts docs, code namespace, and messaging to new contributors. | Leaning toward keeping **AgIO** for continuity; scope clarification via early ADR. |
+| **Serial vs UDP for Control Modules** | Whether to continue supporting **direct USB serial** for control modules or move exclusively to **UDP-based** comms. Serial is convenient for bench testing and legacy installs; UDP simplifies architecture and multi-module setups. GNSS serial remains in scope. | Tentative compromise: keep serial but mark as **legacy / not recommended** for field use. |
 
 *These items are tracked for transparency and may be formalized in future charter revisions or ADRs as consensus
 emerges.*
