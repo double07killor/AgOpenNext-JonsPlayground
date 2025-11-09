@@ -1,16 +1,28 @@
-# 12 — Development Language & Runtime  
+---
+title: 12 — Development Language & Runtime
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-10-21
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: Runtime and dependency governance; updated per metadata standard.
+---
+
+# 12 — Development Language & Runtime
 *(Status: Drafting — Decision Agnostic)*
 
-**Section ID:** 12
-**Version:** 0.1.0
-**Authors:** Nexus Team (Fortney)
-**Last Updated:** 2025-10-24
-**Related Sections:** 11 — OS Support, 14 — Build Environment & Tooling  
-**Related Decisions:** `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `11-ADR-001 — Establish Windows & Linux Support Baseline`
+**Section ID:** 12 | **Version:** 0.1.0  
+**Related Sections:** 11 — Operating System Support, 14 — Build Environment & Tooling  
+**Related Decisions:** `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `11-ADR-001 — Establish Windows & Linux Support Baseline`  
 **Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
-**Downstream Impacts:** 6X — Core Domain Services, 9X — Frontends & Ops  
-
----
+**Downstream Impacts:** 6X — Core Domain Services, 9X — Frontends & Ops
 
 ## 12.1 Purpose & Scope  
 
@@ -232,10 +244,11 @@ These references exist to ensure §12 can be used for audit, onboarding, and fut
 
 ---
 
-## 12.19 Section Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-21 | Initial draft of runtime and dependency governance | Nexus Team (Fortney) |  |
-| 2025-10-24 | Major structural review — added requirement grammar preamble, verification for R-STACK-004, traceability links to ADR 11-001/14-ADR-001, and minor consistency fixes. | Nexus Team (Fortney) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix and aligned the section with the template. | Jon Fortney |  |
+| 0.1.0 | 2025-10-21 | Initial draft of runtime and dependency governance. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2025-10-24 | Major structural review – added requirement grammar preamble, verification for R-STACK-004, traceability links to ADR 11-001/14-ADR-001, and minor consistency fixes. | Nexus Team (Fortney) |  |
 

@@ -66,3 +66,9 @@ Incomplete or missing evidence is grounds for rejection until corrected.
 ## 6. Amendments
 
 Changes to this document follow the [Governance Amendment Process](./GOVERNANCE.md#7-amendment-process).
+
+## Appendix: Change Log
+
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Added metadata/change-log requirement and documented the new policy inline. | Systems Engineering & Documentation Lead |  |

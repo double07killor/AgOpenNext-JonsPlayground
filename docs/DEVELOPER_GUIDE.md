@@ -3,7 +3,7 @@ title: Developer Guide
 version: 0.1.0
 status: Draft
 authors:
-  - Developer Experience Team
+  - Jon Fortney
 owner: Developer Experience Team
 reviewers:
   - Systems Engineering
@@ -84,3 +84,9 @@ status updates.
 
 These references evolve with the platform—check the linked documents for the latest
 procedures and cross-link updates from your PRs.
+
+## Appendix: Change Log
+
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Document metadata and change-log requirements added per governance policy. | Jon Fortney |  |

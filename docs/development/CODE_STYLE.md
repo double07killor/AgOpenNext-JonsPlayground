@@ -105,5 +105,10 @@ CI enforces these rules automatically; local `dotnet format` should fix most iss
 - Major rewrites or specialized algorithms may include an inline note such as:
   `// Implemented by <name> <date> — rationale: <short reason>`
 - Long-term authorship and revision history live in Git commits and the repository log, not the source file.
-- Code comments should be clear and useful. Humor and TODOs are fine in moderation — just make sure they don’t obscure intent or mislead someone reading the code later.
+- Code comments should be clear and useful. Humor and TODOs are fine in moderation – just make sure they don’t obscure intent or mislead someone reading the code later.
 
+## Appendix: Change Log
+
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Added governance metadata/change-log appendix requirement and recorded it here. | Jon Fortney |  |

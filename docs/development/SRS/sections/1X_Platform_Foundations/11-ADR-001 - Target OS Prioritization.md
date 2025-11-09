@@ -1,14 +1,28 @@
-# 11-ADR-001 — Target OS Prioritization  
-*(Status: Accepted — 2025-10-25)*
-
-**Authors:** Nexus Team (Fortney)  
-**Reviewers:** Nexus Team  
-**Created:** 2025-10-20  
-**Last Updated:** 2025-10-24  
-**Related SRS:** `11_OS_Support.md`  
-**Related Options:** 
-
 ---
+title: ADR 11-001 — Target OS Prioritization
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Platform Foundations Working Group
+reviewers:
+  - Nexus Team
+approvers:
+  - Project Coordinator
+created: 2025-10-20
+last_reviewed: 2025-10-24
+review_cycle: Annual
+notes: Defines the Windows/Linux support baseline for Nexus.
+---
+
+# 11-ADR-001 — Target OS Prioritization
+*(Status: Draft — 2025-10-25)*
+
+**Section ID:** 11 | **Version:** 0.1.0  
+**Related SRS:** `11_OS_Support.md`  
+**Related Options:** None  
+**Upstream Dependencies:** 1X — Platform Foundations  
+**Downstream Impacts:** 12 — Development Language & Runtime, 13 — UI Framework & UX, 14 — Build Environment & Tooling
 
 ## 1) Context
 
@@ -133,9 +147,10 @@ tiers keeps expansion visible without diluting the mandatory desktop experience.
 
 ---
 
-## 8) Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-20 | Initial acceptance of Windows/Linux support policy. | Nexus Team (Fortney) |  |
-| 2025-10-24 | Expanded preview/companion notes; aligned with Section 11 parity checklist. | Nexus Team (Fortney) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-10-20 | Initial acceptance of Windows/Linux support policy. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2025-10-24 | Expanded preview/companion notes; aligned with Section 11 parity checklist. | Nexus Team (Fortney) |  |
+

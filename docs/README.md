@@ -1,20 +1,3 @@
----
-title: AgOpenNext Documentation Index
-version: 0.1.0
-status: Proposed
-authors:
-  - AgOpenNext Documentation Team
-owner: Documentation Working Group
-reviewers:
-  - Systems Engineering
-approvers:
-  - Project Coordinator
-created: 2025-11-09
-last_reviewed: 2025-11-09
-review_cycle: Quarterly
-license: GPLv3
----
-
 # AgOpenNext Documentation Index
 
 ## Document Control Metadata

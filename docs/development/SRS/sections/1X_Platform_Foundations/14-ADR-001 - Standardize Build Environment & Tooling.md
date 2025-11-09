@@ -1,14 +1,28 @@
-# 14-ADR-001 — Standardize Build Environment & Tooling  
-*(Status: Draft — Pending Review)*  
-
-**Authors:** Nexus Team (Codex)
-**Reviewers:** Platform Foundations Working Group  
-**Created:** 2025-10-25  
-**Last Updated:** 2025-10-25  
-**Related SRS:** `14_Build_Environment_Tooling.md`  
-**Related Decisions:** `11-ADR-001 — Establish Windows & Linux Support Baseline`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`
-
 ---
+title: ADR 14-001 — Standardize Build Environment & Tooling
+version: 0.1.0
+status: Draft
+authors:
+  - Nexus Team (Codex)
+owner: Release & Tooling Working Group
+reviewers:
+  - Platform Foundations Working Group
+approvers:
+  - Project Coordinator
+created: 2025-10-25
+last_reviewed: 2025-10-25
+review_cycle: Annual
+notes: Build & CI governance; metadata aligned with template.
+---
+
+# 14-ADR-001 — Standardize Build Environment & Tooling
+*(Status: Draft — 2025-10-25)*
+
+**Section ID:** 14 | **Version:** 0.1.0  
+**Related SRS:** `14_Build_Environment_Tooling.md`  
+**Related Options:**  
+**Upstream Dependencies:** 12 — Development Language & Runtime  
+**Downstream Impacts:** 96 — Quality Engineering & Release, 9X — Frontends & Ops
 
 ## 1) Context  
 
@@ -85,8 +99,10 @@ Unified scripts, container bases, and vault integration ensure that every contri
 
 ---
 
-## 8) Change Log  
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-25 | Initial draft defining standardized VS Code + GitHub Actions + Vault build environment. | Nexus Team (Codex) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-10-25 | Initial draft defining standardized VS Code + GitHub Actions + Vault build environment. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix per policy. | Jon Fortney |  |
+

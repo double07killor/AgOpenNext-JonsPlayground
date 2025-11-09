@@ -1,8 +1,25 @@
+---
+title: ADR Template
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-11-09
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: Template for architecture decision records; includes governance metadata and change-log appendix.
+---
+
 # [Section]-ADR-### — [Decision Title]
 
 *(Status: Proposed | Accepted | Superseded | Deprecated | Rejected)*
 
-**Authors:** Nexus Team (Codex)
+**Authors:** Jon Fortney
 **Reviewers:** [Working Group or Circle]
 **Created:** YYYY-MM-DD
 **Last Updated:** YYYY-MM-DD
@@ -137,13 +154,12 @@ Define any maintenance or policy frameworks resulting from this decision.
 
 ---
 
-## 11) Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Added governance metadata/change-log template and this appendix. | Jon Fortney |  |
 | YYYY-MM-DD | Initial draft | Nexus Team (Codex) |  |
-| YYYY-MM-DD | Accepted | Nexus Team (Codex) |  |
-| YYYY-MM-DD | Superseded | Nexus Team (Codex) |  |
 
 ---
 

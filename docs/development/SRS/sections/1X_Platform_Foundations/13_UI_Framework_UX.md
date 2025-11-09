@@ -1,17 +1,28 @@
-# 13 — UI Framework & UX Language  
-*(Status: Drafting — Decision Agnostic)*  
-
-**Section ID:** 13
-**Version:** 0.1.0
-**Authors:** Nexus Team (Codex)
-**Last Updated:** 2025-10-25  
-**Related Sections:** 11 — OS Support, 12 — Development Language & Runtime, 9X — Frontends & Ops  
-**Related Decisions:** `13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `11-ADR-001 — Establish Windows & Linux Support Baseline`
-**Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
-**Downstream Impacts:** 9X — Frontends & Ops, Operator Training  
-
-
 ---
+title: 13 — UI Framework & UX
+version: 0.1.0
+status: Draft
+authors:
+  - Nexus Team (Codex)
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-10-20
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: UI/UX modernization goals; governance metadata applied.
+---
+
+# 13 — UI Framework & UX
+*(Status: Drafting)*
+
+**Section ID:** 13 | **Version:** 0.1.0  
+**Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 9X — Frontends & Ops  
+**Related Decisions:** `13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`  
+**Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
+**Downstream Impacts:** 9X — Frontends & Ops, Training & User Experience
 
 ## 13.1 Purpose & Scope
 
@@ -247,9 +258,11 @@ Aligns with **ISO/IEC/IEEE 29148:2018** for UI requirement traceability and W3C 
 
 ---
 
-## 13.19 Section Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-20 | Converted UI framework section to standardized template. | Nexus Team (Codex) |  |
-| 2025-10-25 | Added Avalonia transition path, run-mode verification, and accessibility baseline. | Nexus Team (Codex) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Applied governance metadata/change-log template and annotated the section accordingly. | Jon Fortney |  |
+| 0.1.0 | 2025-10-20 | Converted UI framework section to standardized template. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-10-25 | Added Avalonia transition path, run-mode verification, and accessibility baseline. | Nexus Team (Codex) |  |
+

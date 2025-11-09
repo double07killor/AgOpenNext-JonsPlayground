@@ -1,16 +1,28 @@
-# 11 — Operating System Support
-*(Status: drafting)*
+---
+title: 11 — Operating System Support
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-10-24
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: OS coverage requirements; metadata aligned to governance policy.
+---
 
-**Section ID:** 11  
-**Version:** 0.1.0  
-**Authors:** Nexus Team (Fortney)  
-**Last Updated:** 2025-10-24  
+# 11 — Operating System Support
+*(Status: Drafting)*
+
+**Section ID:** 11 | **Version:** 0.1.0  
 **Related Sections:** 12 — Development Language & Runtime, 14 — Build Environment & Tooling  
 **Related Decisions:** `11-ADR-001 — Establish Windows & Linux Support Baseline`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell`  
 **Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
 **Downstream Impacts:** 5X — Hardware I/O Device Layer, 9X — Frontends & Ops
-
----
 
 ## 11.1 Purpose & Scope
 
@@ -292,10 +304,10 @@ This section aligns with the following standards for software requirements and a
 
 ---
 
-## 11.19 Section Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-24 | Initial draft (OS-only) | Nexus Team (Fortney) |  |
-
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix as required by policy. | Jon Fortney |  |
+| 0.1.0 | 2025-10-24 | Initial draft (OS-only). | Nexus Team (Fortney) |  |
 

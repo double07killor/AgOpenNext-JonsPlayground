@@ -2,8 +2,8 @@
 title: AgOpenNext Governance Framework
 version: 0.1.0
 status: Draft
-author: Fortney, J.
-last_reviewed: 2025-11-08
+author: Jon Fortney
+last_reviewed: 
 ---
 
 # AgOpenNext Governance Framework
@@ -152,25 +152,41 @@ No signatures or legal obligations are implied. The Charter represents a shared 
 
 ### 5.1 Required Metadata Header
 
-Each controlled document must begin with:
+Every governance, SRS, ADR, template, or policy artifact must open with YAML front matter containing:
 
+```
 ---
-author: Name
-reviewed_by: Name(s)
-approved_by: Role or Name
-version: X.Y.Z
-date: YYYY-MM-DD
+title: <document name>
+version: <semantic version>
 status: Draft|In Review|Approved|Superseded
+authors:
+  - <primary author>
+owner: <role or team>
+reviewers:
+  - <reviewer name/role>
+approvers:
+  - <approver name/role>
+created: YYYY-MM-DD
+last_reviewed: YYYY-MM-DD
+review_cycle: <frequency or trigger>
+notes: <optional clarifications>
 ---
+```
 
-### 5.2 Revision Control
+GitHub renders this metadata automatically, so a separate “Document Control” section is optional; if you repeat the values, mirror the YAML exactly to avoid conflicting facts.
+
+### 5.2 Appendix: Change Log
+
+Each controlled document must conclude with an `## Appendix: Change Log` section containing a table (Date, Summary, Owner/Author, PR/Issue if known). This table provides reviewers with history without requiring git history searches.
+
+### 5.3 Revision Control
 - All updates occur through Pull Requests.
-- Each merge increments version in the file header.
-- Major rewrites require a changelog section or comment explaining the revision.
-- Git history is the source of truth — nothing is deleted.
+- Each merge increments the `version` field in the front matter.
+- Major rewrites require the change-log table described above and a summary comment explaining the revision.
+- Git history remains the source of truth – nothing is deleted.
 
-### 5.3 Approval Records
-The Systems Engineer maintains an index file (/docs/development/SRS/INDEX.md) listing all ADRs and their approval signatures.
+### 5.4 Approval Records
+The Systems Engineer maintains an index file (/docs/development/SRS/INDEX.md) listing every ADR and its approval signatures.
 
 ## 6. Enforcement & Compliance
 
@@ -207,4 +223,10 @@ Anonymous or unattributed commits to governance, SRS, or ADR files will be rejec
 - [docs/governance/DECISIONS.md](./DECISIONS.md)
 - [docs/team/README.md](../team/README.md)
 - [docs/development/SRS/](../development/SRS/)
+
+## Appendix: Change Log
+
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Added metadata/change-log template requirements and documented the enforcement steps. | Jon Fortney |  |
 

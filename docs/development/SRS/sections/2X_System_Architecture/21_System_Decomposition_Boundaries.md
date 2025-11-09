@@ -1,15 +1,28 @@
-# 21 — System Decomposition & Boundaries
-*(Status: Drafting — Decision-Agnostic Overview)*
-
-**Author:** Nexus Team (Fortney)  
-**Created:** 2025-10-20  
-**Version:** 0.3.1  
-**Editors:** (TBD Working Groups)  
-**Last Updated:** 2025-10-25  
-**Related Sections:** 11 — OS Support, 12 — Runtime & Language, 13 — UI Framework & UX  
-**Related ADRs:** 11-ADR-001, 12-ADR-001, 13-ADR-001  
-
 ---
+title: 21 — System Decomposition & Boundaries
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-10-21
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: Architecture decomposition overview; metadata updated per governance policy.
+---
+
+# 21 — System Decomposition & Boundaries
+*(Status: Drafting)*
+
+**Section ID:** 21 | **Version:** 0.1.0  
+**Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 13 — UI Framework & UX  
+**Related Decisions:** `11-ADR-001 — Establish Windows & Linux Support Baseline`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell`  
+**Upstream Dependencies:** 1X — Platform Foundations, 4X — Interprocess Communications  
+**Downstream Impacts:** 3X — Data Storage, 5X — Hardware I/O Device Layer
 
 ## 21.1 Purpose & Scope
 
@@ -518,10 +531,11 @@ Compliance is achieved when all tests confirm deterministic equivalence across s
 
 ---
 
-## Section Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-21 | Initial draft | Nexus Team (Codex) |  |
-| 2025-10-25 | Complete Rewrite to embrase a C# Struct based Core archetecture to include AgIO in Core | Nexus Team (Fortney) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix and noted the standard. | Jon Fortney |  |
+| 0.1.0 | 2025-10-21 | Initial draft. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-10-25 | Complete rewrite to embrace a C#-based Core architecture that includes AgIO integration. | Nexus Team (Fortney) |  |
 

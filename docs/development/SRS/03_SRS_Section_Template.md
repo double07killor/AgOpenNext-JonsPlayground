@@ -1,3 +1,20 @@
+---
+title: SRS Section Template
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-11-09
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: Template for SRS sections; includes governance metadata and appendix requirements.
+---
+
 # [Section Number] — [Section Title]
 *(Status: [drafting/review/final])*
 
@@ -343,3 +360,9 @@ and **IEEE 1016:2017** (*Software Design Description*).
 > **Normative content**: measurable, testable requirements (**MUST/SHOULD/MAY**).  
 > **Informative content**: context, rationale, and design exploration.  
 > **Traceability**: every requirement links to a verification method and code artifact.
+
+## Appendix: Change Log
+
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Added governance metadata template header and mandated change-log appendix. | Jon Fortney |  |

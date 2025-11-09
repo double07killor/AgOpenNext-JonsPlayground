@@ -1,3 +1,20 @@
+---
+title: SRS Option Template
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-11-09
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: Template for documenting options; metadata and appendix per governance policy.
+---
+
 # [Section]-O# — [Short Title]
 
 *(Status: Proposed | Favored | In Review | Approved | Deprecated)*
@@ -5,7 +22,7 @@
 **Option ID:** [Section]-O#
 **Section ID:** [Section] — [Section Title]
 **Version:** 0.1.0
-**Authors:** Nexus Team (Codex)
+**Authors:** Jon Fortney
 **Reviewers:** [Working Group or Reviewers]
 **Created:** YYYY-MM-DD
 **Last Updated:** YYYY-MM-DD
@@ -185,10 +202,11 @@ flowchart LR
 
 ---
 
-## 17) Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Added governance metadata/access policy and appended this changelog. | Jon Fortney |  |
 | YYYY-MM-DD | Initial draft | Nexus Team (Codex) |  |
 | YYYY-MM-DD | Review updates | Nexus Team (Codex) |  |
 | YYYY-MM-DD | Approved | Nexus Team (Codex) |  |

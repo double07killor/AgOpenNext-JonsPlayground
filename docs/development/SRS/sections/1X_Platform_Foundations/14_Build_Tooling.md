@@ -1,23 +1,28 @@
-# 14 — Build Environment & Tooling
-
-*(Status: Proposed)*
-
-**Section ID:** 14
-**Version:** 0.1.0
-**Authors:** Nexus Team (Codex)
-**Created:** 2025-10-20
-**Last Updated:** 2025-10-25
-**Related Sections:** 11 — OS Support, 12 — Development Language & Runtime, 96 — Quality Engineering & Release
-**Related Decisions:** `14-ADR-001 — Standardize Build Environment & Tooling`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `11-ADR-001 — Establish Windows & Linux Support Baseline`
-**Upstream Dependencies:** §12 — Runtime Governance, §96 — QE Policies
-**Downstream Impacts:** Release pipelines and developer onboarding
-**Reviewers:** Release & Tooling Working Group
-
-> **In plain terms:** Anyone can spin up the Nexus build in minutes, the CI
-> machines use the exact same scripts, and secrets stay locked away so signed
-> installers and packages are always trustworthy.
-
 ---
+title: 14 — Build Environment & Tooling
+version: 0.1.0
+status: Draft
+authors:
+  - Nexus Team (Codex)
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-10-20
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: Build/tooling governance; metadata aligned to policy.
+---
+
+# 14 — Build Environment & Tooling
+*(Status: Drafting)*
+
+**Section ID:** 14 | **Version:** 0.1.0  
+**Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 96 — Quality Engineering & Release  
+**Related Decisions:** `14-ADR-001 — Standardize Build Environment & Tooling`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`  
+**Upstream Dependencies:** 12 — Development Language & Runtime, 96 — Quality Engineering & Release  
+**Downstream Impacts:** Release pipelines, developer onboarding, plugin SDK delivery
 
 ## 14.1 Purpose & Scope  
 
@@ -221,9 +226,11 @@ Aligned with **SLSA Level 2** (Supply-chain Levels for Software Artifacts),
 
 ---
 
-## 14.19 Section Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-20 | Standardized build tooling section drafted. | Nexus Team (Codex) |  |
-| 2025-10-25 | Updated to reflect VS Code + GitHub Actions workflow. | Nexus Team (Codex) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix per policy. | Jon Fortney |  |
+| 0.1.0 | 2025-10-20 | Standardized build tooling section drafted. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-10-25 | Updated to reflect VS Code + GitHub Actions workflow. | Nexus Team (Codex) |  |
+

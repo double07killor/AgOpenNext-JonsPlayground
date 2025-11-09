@@ -1,8 +1,25 @@
+---
+title: AgOpenNext System Slices Map
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-11-08
+last_reviewed: 2025-11-08
+review_cycle: Quarterly
+notes: Index of SRS sections and their dependencies; metadata per governance policy.
+---
+
 # System Slices Map
 
 *(Status: Drafting)*
 
-**Authors:** Nexus Team (Codex)
+**Authors:** Jon Fortney
 **Last Updated:** 2025-10-24
 
 ---
@@ -71,8 +88,9 @@ PoseStream, layer, and control workstreams captured in the [ADR roadmap](section
 
 ---
 
-## Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-24 | Initial catalog published | Nexus Team (Codex) |  |
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Document metadata policy applied and appendix added. | Jon Fortney |  |
+| 2025-10-24 | Initial catalog published. | Nexus Team (Codex) |  |

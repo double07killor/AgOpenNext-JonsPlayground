@@ -1,3 +1,20 @@
+---
+title: AgOpenNext SRS Overview
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Systems Engineering & Documentation Lead
+reviewers:
+  - Systems Engineering Team
+approvers:
+  - Project Coordinator
+created: 2025-11-08
+last_reviewed: 2025-11-08
+review_cycle: Quarterly
+notes: SRS index and orientation; updated per governance metadata policy.
+---
+
 # AgOpenNext SRS
 
 *(Status: Drafting)*
@@ -191,9 +208,10 @@ _This matrix links every requirement (R-) to the options, references, and eventu
 
 ---
 
-## Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-11-8 | Strip from Nexus readme to a draft AgOpenNext SRS Readme | Jon Fortney |  |
-| 2025-10-24 | Initial SRS overview seeded | Nexus Team (Fortney) |  |
+| Date | Summary | Owner/Author | PR / Issue |
+|------|---------|--------------|------------|
+| 2025-11-09 | Added governance metadata requirements and appended this change log table. | Jon Fortney |  |
+| 2025-11-08 | Converted to the AgOpenNext SRS workspace and described status/roles. | Jon Fortney |  |
+| 2025-10-24 | Initial SRS overview seeded. | Nexus Team (Fortney) |  |

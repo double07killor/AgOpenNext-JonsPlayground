@@ -1,16 +1,29 @@
-# 12-ADR-001 — Adopt .NET 10 LTS Runtime Across Nexus
-*(Status: Accepted — 2027-03-14)*
+---
+title: ADR 12-001 — Adopt .NET 10 LTS Runtime Across Nexus
+version: 0.1.0
+status: Draft
+authors:
+  - Jon Fortney
+owner: Architecture Working Group
+reviewers:
+  - Architecture Working Group
+  - Release & Tooling Working Group
+approvers:
+  - Project Coordinator
+created: 2025-10-20
+last_reviewed: 2027-03-14
+review_cycle: Annual
+notes: Runtime selection decision; metadata per governance policy.
+---
 
-**Authors:** Nexus Team (Fortney)
-**Reviewers:** Architecture Working Group, Release & Tooling Working Group  
-**Created:** 2025-10-20
-**Last Updated:** 2027-03-14
+# 12-ADR-001 — Adopt .NET 10 LTS Runtime Across Nexus
+*(Status: Draft — 2027-03-14)*
+
+**Section ID:** 12 | **Version:** 0.1.0  
 **Related SRS:** `12_Development_Language_Runtime.md`  
 **Related Options:** `12-O1_Runtime_Policy.md`  
-**Upstream Sections:** §11 (OS Support)  |  §14 (Build Environment & Tooling)  
-**Downstream Impacts:** UI Framework Selection (§13), Plugin Contracts (§6X)  
-
----
+**Upstream Dependencies:** 11 — Operating System Support  
+**Downstream Impacts:** 13 — UI Framework & UX, 14 — Build Environment & Tooling
 
 ## 1) Context
 
@@ -101,10 +114,11 @@ would violate §11 and §12 requirements for OS parity, determinism, and maintai
 
 ---
 
-## 8) Change Log
+## Appendix: Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-20 | Initial adoption of .NET 8 LTS runtime. | Nexus Team (Fortney) |  |
-| 2025-10-25 | Clarified NativeAOT scope and dependency governance linkage. | Nexus Team (Fortney) |  |
-| 2027-03-14 | Elevated runtime baseline to .NET 10 LTS and refreshed governance. | Nexus Team (Fortney) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-10-20 | Initial adoption of .NET 8 LTS runtime. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2025-10-25 | Clarified NativeAOT scope and dependency governance linkage. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2027-03-14 | Elevated runtime baseline to .NET 10 LTS and refreshed governance. | Nexus Team (Fortney) |  |
+
