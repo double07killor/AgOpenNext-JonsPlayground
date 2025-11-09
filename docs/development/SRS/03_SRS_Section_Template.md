@@ -324,10 +324,10 @@ Capture relevant contributor discussions and alignment of community feedback.
 
 ### [X.15.1] Section Change Log
 
-| Date | Summary | Author | PR / Issue |
-|------|---------|--------|------------|
-| 2025-10-20 | Initial draft of requirements & options | Nexus Team (Codex) |  |
-| - | Approve [X]-O2; add verification plan | Nexus Team (Codex) |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-10-20 | Initial draft of requirements & options | Nexus Team (Codex) |  |
+| 0.1.0 | - | Approve [X]-O2; add verification plan | Nexus Team (Codex) |  |
 
 ---
 
@@ -363,6 +363,6 @@ and **IEEE 1016:2017** (*Software Design Description*).
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Added governance metadata template header and mandated change-log appendix. | Jon Fortney |  |
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata template header and mandated change-log appendix. | Jon Fortney |  |

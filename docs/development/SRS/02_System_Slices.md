@@ -90,7 +90,7 @@ PoseStream, layer, and control workstreams captured in the [ADR roadmap](section
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Document metadata policy applied and appendix added. | Jon Fortney |  |
-| 2025-10-24 | Initial catalog published. | Nexus Team (Codex) |  |
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-09 | Document metadata policy applied and appendix added. | Jon Fortney |  |
+| 0.1.0 | 2025-10-24 | Initial catalog published. | Nexus Team (Codex) |  |

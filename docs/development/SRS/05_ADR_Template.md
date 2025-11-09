@@ -156,10 +156,10 @@ Define any maintenance or policy frameworks resulting from this decision.
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Added governance metadata/change-log template and this appendix. | Jon Fortney |  |
-| YYYY-MM-DD | Initial draft | Nexus Team (Codex) |  |
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata/change-log template and this appendix. | Jon Fortney |  |
+| 0.1.0 | YYYY-MM-DD | Initial draft | Nexus Team (Codex) |  |
 
 ---
 

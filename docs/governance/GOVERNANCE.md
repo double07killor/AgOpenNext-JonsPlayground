@@ -20,7 +20,7 @@ This framework establishes:
 - File control and authorship requirements
 - Decision-making authority and review rules
 
-It does not govern the legal ownership of code or content. All work remains open under the project’s chosen license.
+It does not govern the legal ownership of code or content. 
 
 ## 2. Organizational Structure
 
@@ -29,7 +29,7 @@ It does not govern the legal ownership of code or content. All work remains open
 | Role | Description |
 |------|--------------|
 | Project Coordinator | Serves as the overall steward of the project and final authority for governance interpretation. Facilitates alignment across domains, approves major documents such as the Charter, and resolves disputes that cannot be settled within the technical team. |
-| Project Lead(s) | Responsible for executing development within their section of the codebase (e.g., Core, UI, AgIO) according to approved ADRs and requirements. Leads manage day-to-day implementation details, maintain code quality, and ensure their work conforms to system-level decisions made collectively through the ADR process. |
+| Project Lead(s) | Responsible for executing development within their section of the codebase (e.g., Core, UI, AgIO, Kinematics, Guidance etc) according to approved ADRs and requirements. Leads manage day-to-day implementation details, maintain code quality, and ensure their work conforms to system-level decisions made collectively through the ADR process. |
 
 
 
@@ -137,7 +137,7 @@ All ADR modifications after approval must increment the version and include a ch
 ### 4.5 Charter Approval and Revision
 
 **Approval process**
-- Community discussion period of two weeks (Telegram + GitHub Discussions) with no major objections.
+- Community discussion period of one week (Telegram + GitHub Discussions) with no major objections.
 - Core contributors acknowledge the scope and agree to operate within it.
 - The Project Coordinator declares the Charter accepted based on observed consensus.
 
@@ -177,7 +177,7 @@ GitHub renders this metadata automatically, so a separate “Document Control”
 
 ### 5.2 Appendix: Change Log
 
-Each controlled document must conclude with an `## Appendix: Change Log` section containing a table (Date, Summary, Owner/Author, PR/Issue if known). This table provides reviewers with history without requiring git history searches.
+Each controlled document must conclude with an `## Appendix: Change Log` section containing a table (Version, Date, Changes, Author, PR/Issue if known). This table provides reviewers with history without requiring git history searches.
 
 ### 5.3 Revision Control
 - All updates occur through Pull Requests.
@@ -226,7 +226,7 @@ Anonymous or unattributed commits to governance, SRS, or ADR files will be rejec
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Added metadata/change-log template requirements and documented the enforcement steps. | Jon Fortney |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Added metadata/change-log template requirements and documented the enforcement steps. | Jon Fortney |  |
 

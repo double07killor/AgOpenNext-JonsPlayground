@@ -1,3 +1,20 @@
+---
+title: AgOpenNext Documentation Index
+version: 0.1.0
+status: Draft
+authors:
+  - Documentation Working Group
+owner: Documentation Working Group
+reviewers:
+  - Systems Engineering
+approvers:
+   - Project Coordinator
+created: 2025-11-09
+last_reviewed: 2025-11-09
+review_cycle: Quarterly
+notes: Documentation landing page & metadata guidance.
+---
+
 # AgOpenNext Documentation Index
 
 ## Document Control Metadata

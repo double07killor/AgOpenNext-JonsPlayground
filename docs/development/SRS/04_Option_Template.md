@@ -204,12 +204,12 @@ flowchart LR
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Added governance metadata/access policy and appended this changelog. | Jon Fortney |  |
-| YYYY-MM-DD | Initial draft | Nexus Team (Codex) |  |
-| YYYY-MM-DD | Review updates | Nexus Team (Codex) |  |
-| YYYY-MM-DD | Approved | Nexus Team (Codex) |  |
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata/access policy and appended this changelog. | Jon Fortney |  |
+| 0.1.0 | YYYY-MM-DD | Initial draft | Nexus Team (Codex) |  |
+| 0.1.0 | YYYY-MM-DD | Review updates | Nexus Team (Codex) |  |
+| 0.1.0 | YYYY-MM-DD | Approved | Nexus Team (Codex) |  |
 
 ---
 

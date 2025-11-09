@@ -37,7 +37,7 @@ Think of the SRS as the map and the ADRs as the signposts we install along the r
 
 ### Quick start for new readers
 
-1. Skim the [Project charter & vision guardrails](01_Project_Charter.md) to understand the product direction and deliberate omissions.
+1. Skim the [Project charter & vision guardrails](../../PROJECT_CHARTER.md) to understand the product direction and deliberate omissions.
 2. Jump to the [System slices](02_System_Slices.md) index and find the area that matches your question (e.g., UI, hardware IO, guidance).
 3. Open the corresponding section under [`sections/`](sections/) to see requirements (`R-` IDs), open questions (`Q-` IDs), and option stubs (`O-` IDs).
 4. Follow links into ADRs when you need the final decision, implementation guardrails, or rollout notes.
@@ -210,8 +210,8 @@ _This matrix links every requirement (R-) to the options, references, and eventu
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Added governance metadata requirements and appended this change log table. | Jon Fortney |  |
-| 2025-11-08 | Converted to the AgOpenNext SRS workspace and described status/roles. | Jon Fortney |  |
-| 2025-10-24 | Initial SRS overview seeded. | Nexus Team (Fortney) |  |
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata requirements and appended this change log table. | Jon Fortney |  |
+| 0.1.0 | 2025-11-08 | Converted to the AgOpenNext SRS workspace and described status/roles. | Jon Fortney |  |
+| 0.1.0 | 2025-10-24 | Initial SRS overview seeded. | Nexus Team (Fortney) |  |

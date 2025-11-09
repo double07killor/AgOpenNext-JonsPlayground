@@ -69,6 +69,6 @@ Changes to this document follow the [Governance Amendment Process](./GOVERNANCE.
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Added metadata/change-log requirement and documented the new policy inline. | Systems Engineering & Documentation Lead |  |
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-09 | Added metadata/change-log requirement and documented the new policy inline. | Jon Fortney |  |

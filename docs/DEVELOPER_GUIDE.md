@@ -87,6 +87,6 @@ procedures and cross-link updates from your PRs.
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Document metadata and change-log requirements added per governance policy. | Jon Fortney |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Document metadata and change-log requirements added per governance policy. | Jon Fortney |  |

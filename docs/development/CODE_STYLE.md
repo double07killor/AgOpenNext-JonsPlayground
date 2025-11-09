@@ -109,6 +109,6 @@ CI enforces these rules automatically; local `dotnet format` should fix most iss
 
 ## Appendix: Change Log
 
-| Date | Summary | Owner/Author | PR / Issue |
-|------|---------|--------------|------------|
-| 2025-11-09 | Added governance metadata/change-log appendix requirement and recorded it here. | Jon Fortney |  |
+| Version | Date | Changes | Author | PR / Issue |
+|---------|------|---------|--------|------------|
+| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix requirement and recorded it here. | Jon Fortney |  |
