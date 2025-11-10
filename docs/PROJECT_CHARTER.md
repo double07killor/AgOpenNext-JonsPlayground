@@ -21,6 +21,9 @@ notes: Markdown copy is canonical; add the Google Docs link when a mirrored vers
 Metadata for this charter lives in the YAML front-matter block above; keep those values in sync with the ownership,
 review, and lifecycle expectations outlined in the governance policy.
 
+The companion [roadmap](./ROADMAP.md) documents how the charter's goals translate into high-level phases and sequencing
+toward GA so decision-makers can track progress without duplicating governance commitments.
+
 ## 1. Executive Summary, Mission & Vision
 
 AgOpenNext is a ground-up rebuild of AgOpenGPS, engineered for long-term stability, maintainability, and true

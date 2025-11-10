@@ -57,29 +57,28 @@ Each upgrade is validated in CI and documented through ADRs to ensure stability 
 
 ## Repo Layout (subject to change)
 
-- **[docs/](./docs)** — Charter, governance, SRS, contributor & operator docs  
-  - [README.md](./docs/README.md) — Documentation landing page  
-  - [PROJECT_CHARTER.md](./docs/PROJECT_CHARTER.md) — Authoritative scope and guardrails  
+- **[docs/](./docs)** – Charter, governance, SRS, and contributor-facing docs  
+  - [README.md](./docs/README.md) – Documentation landing page  
+  - [ROADMAP.md](./docs/ROADMAP.md) – High-level sequencing toward GA  
+  - [PROJECT_CHARTER.md](./docs/PROJECT_CHARTER.md) – Authoritative scope, goals, and guardrails  
+  - [DOC_TEMPLATE.md](./docs/DOC_TEMPLATE.md) – Reusable structure for new docs  
+  - [DEVELOPER_GUIDE.md](./docs/DEVELOPER_GUIDE.md) – Contributor expectations  
+  - [GLOSSARY.md](./docs/GLOSSARY.md) – Canonical terminology  
   - **[team/](./docs/team)** — Team bios and responsibilities  
     - [README.md](./docs/team/README.md)  
+    - [TEMPLATE.md](./docs/team/TEMPLATE.md)  
   - **[governance/](./docs/governance)** — Governance and decision policy  
     - [GOVERNANCE.md](./docs/governance/GOVERNANCE.md)  
     - [DECISIONS.md](./docs/governance/DECISIONS.md)  
-    - RFC_PROCESS.md *(coming soon)*  
   - **[development/](./docs/development)** — Engineering standards and workflow  
     - [CODE_STYLE.md](./docs/development/CODE_STYLE.md)  
-    - CONTRIBUTING.md *(coming soon)*  
-    - REVIEW_GUIDE.md *(coming soon)*  
-    - TESTING.md *(coming soon)*  
-    - BUILDING.md *(coming soon)*  
-    - RELEASES.md *(coming soon)*  
     - **[SRS/](./docs/development/SRS)** — System Requirements & ADR trail  
-  - **[process/](./docs/process)** — High-level community and release process  
-    - RELEASE_PROCESS.md *(coming soon)*  
-  - *(coming soon: operator / user guides)*  
-- **[src/](./src)** — Core, AgIO, UI, Plugins (when they exist)  
-- **[tests/](./tests)** — Unit, integration, replay/simulation harnesses  
-- **[tools/](./tools)** — Dev scripts, packaging, CI helpers  
+    - (future files such as CONTRIBUTING.md, REVIEW_GUIDE.md, TESTING.md, BUILDING.md, RELEASES.md)  
+  - *(coming soon: process, operator, and user guides defined here)*  
+- **[src/](./src)** — Planned home for Core, AgIO, UI, and plugin code (directory to land)  
+- **[tests/](./tests)** — Placeholder for unit, integration, and replay harnesses  
+- **[tools/](./tools)** — Scripts, packaging helpers, and CI utilities (future)  
+- **[LICENSE](./LICENSE)** — GPLv3 licensing terms  
 - **[README.md](./README.md)** — Top-level overview  
 
 > Paths may differ initially — adjust as folders land.
@@ -147,6 +146,7 @@ Third-party components remain under their respective licenses.
 ## Quick Links
 - [Project Charter](./docs/PROJECT_CHARTER.md)
 - [Documentation Index](./docs/README.md)
+- [Roadmap](./docs/ROADMAP.md)
 - [SRS Overview](./docs/development/SRS/00_ReadMe.md)
 - [Meet the Team](./docs/team/README.md)
 
