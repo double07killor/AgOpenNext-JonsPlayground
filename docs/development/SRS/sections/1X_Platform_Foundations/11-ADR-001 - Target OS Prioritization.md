@@ -4,15 +4,15 @@ version: 0.1.0
 status: Draft
 authors:
   - Jon Fortney
-owner: Platform Foundations Working Group
+owner: Systems Engineering
 reviewers:
-  - Nexus Team
+  - Systems Engineering & Maintainers
 approvers:
   - Project Coordinator
 created: 2025-10-20
-last_reviewed: 2025-10-24
+last_reviewed: 2025-11-09
 review_cycle: Annual
-notes: Defines the Windows/Linux support baseline for Nexus.
+notes: Defines the Windows/Linux support baseline for AgOpenNext.
 ---
 
 # 11-ADR-001 — Target OS Prioritization
@@ -26,21 +26,21 @@ notes: Defines the Windows/Linux support baseline for Nexus.
 
 ## 1) Context
 
-Section 11 establishes the requirement that Nexus must provide cross-platform builds
+Section 11 establishes the requirement that AgOpenNext must provide cross-platform builds
 with functional parity across supported operating systems.
 
 Historically, AgOpenGPS releases shipped only **Windows** desktop installers, while
 community forks and experiments provided limited or manual **Linux** builds.
 
 To align platform teams, this ADR codifies the officially supported OS scope,
-tiering, and governance rules for the initial Nexus release. Other operating systems
+tiering, and governance rules for the initial AgOpenNext release. Other operating systems
 remain out of scope until baseline parity and stability are achieved.
 
 ---
 
 ## 2) Decision
 
-For the **initial Nexus release** and **until further notice**, only **Windows** and **Linux**
+For the **initial AgOpenNext release** and **until further notice**, only **Windows** and **Linux**
 will be developed, tested, and distributed as officially supported platforms.
 
 These platforms constitute the **entire supported scope** for full-stack operation
@@ -70,7 +70,7 @@ stable.
 
 > **Normative:**  
 > This decision establishes Windows and Linux as the **only officially supported and
-developed platforms** for Nexus at this time. Future OS expansions will be proposed
+developed platforms** for AgOpenNext at this time. Future OS expansions will be proposed
 and ratified through new ADRs.
 
 ---
@@ -97,7 +97,7 @@ and ratified through new ADRs.
 - Document **promotion criteria** for any new OS proposal and keep a current support matrix in release notes.
 
 > **Outcome:**  
-> Nexus 1.0 will ship and be officially supported on **Windows** and **Linux** only, forming
+> AgOpenNext 1.0 will ship and be officially supported on **Windows** and **Linux** only, forming
 the foundation for future cross-platform growth.
 
 ---
@@ -123,7 +123,7 @@ tiers keeps expansion visible without diluting the mandatory desktop experience.
 
 ## 6) Governance
 
-- **Ownership:** Platform Foundations Working Group (PFWG).  
+- **Ownership:** Systems Engineering.  
 - **Review Cadence:** Bi-annual or when major Windows / Ubuntu LTS versions shift.  
 - **Artifacts:** Published Support Matrix, Parity Checklist, Release Parity Dashboards.  
 - **Exit Criteria:** Superseded by a future ADR that changes mandatory OS coverage or adds a new Primary tier.
@@ -141,7 +141,7 @@ tiers keeps expansion visible without diluting the mandatory desktop experience.
 ---
 
 > **Summary:**  
-> ADR 11-001 defines the initial OS support boundary for Nexus.  
+> ADR 11-001 defines the initial OS support boundary for AgOpenNext.  
 > Windows and Linux are the only officially developed and supported platforms at this time.  
 > Future expansions will require separate ADRs and formal PFWG approval.
 
@@ -151,6 +151,8 @@ tiers keeps expansion visible without diluting the mandatory desktop experience.
 
 | Version | Date | Changes | Author | PR / Issue |
 |---------|------|---------|--------|------------|
-| 0.1.0 | 2025-10-20 | Initial acceptance of Windows/Linux support policy. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2025-11-09 | Tweaked for us in AgOpenNext Project | Jon Fortney |  |
 | 0.1.0 | 2025-10-24 | Expanded preview/companion notes; aligned with Section 11 parity checklist. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2025-10-20 | Initial draft Windows/Linux support policy. | Nexus Team (Fortney) |  |
+
 

@@ -20,13 +20,13 @@ notes: Build/tooling governance; metadata aligned to policy.
 
 **Section ID:** 14 | **Version:** 0.1.0  
 **Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 96 — Quality Engineering & Release  
-**Related Decisions:** `14-ADR-001 — Standardize Build Environment & Tooling`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`  
+**Related Decisions:** `14-ADR-001 — Standardize Build Environment & Tooling`, `12-ADR-001 — Adopt .NET 10 Runtime`  
 **Upstream Dependencies:** 12 — Development Language & Runtime, 96 — Quality Engineering & Release  
 **Downstream Impacts:** Release pipelines, developer onboarding, plugin SDK delivery
 
 ## 14.1 Purpose & Scope  
 
-Define the **toolchains, automation, signing, and secrets policies** that keep all Nexus builds reproducible, portable, and secure across Windows and Linux.  
+Define the **toolchains, automation, signing, and secrets policies** that keep all AgOpenNext builds reproducible, portable, and secure across Windows and Linux.  
 All development currently uses **Visual Studio Code** with the **.NET 10 SDK**, and **GitHub Actions** handles the Windows + Linux continuous-integration lanes.
 Local builds, containerized tests, and CI runs use identical scripts to guarantee environment parity.  
 
@@ -42,9 +42,9 @@ Local builds, containerized tests, and CI runs use identical scripts to guarante
 > **Quick Start for Developers**
 >
 > 1. Clone the repo and run  
->    `tools/scripts/nexus.sh bootstrap` (Linux/macOS) or `tools/scripts/nexus.ps1 bootstrap` (Windows).  
+>    `tools/scripts/AgOpenNext.sh bootstrap` (Linux/macOS) or `tools/scripts/AgOpenNext.ps1 bootstrap` (Windows).  
 > 2. Run `dotnet build` and `dotnet test` to confirm the environment matches CI.  
-> 3. Use `tools/scripts/nexus.sh run --help` to explore common workflows.  
+> 3. Use `tools/scripts/AgOpenNext.sh run --help` to explore common workflows.  
 > 4. Never export or copy signing keys — CI fetches them just-in-time from the vault.
 
 ---

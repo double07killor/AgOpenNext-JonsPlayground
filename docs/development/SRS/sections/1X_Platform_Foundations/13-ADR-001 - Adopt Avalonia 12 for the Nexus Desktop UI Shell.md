@@ -1,22 +1,22 @@
 ---
-title: ADR 13-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell
+title: ADR 13-001 — Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell
 version: 0.1.0
 status: Draft
 authors:
   - Nexus Team (Codex)
-owner: UI Working Group
+owner: System Engineering
 reviewers:
-  - Platform Foundations Working Group
+  - System Engineering Team
 approvers:
   - Project Coordinator
 created: 2025-10-20
-last_reviewed: 2027-03-14
+last_reviewed: 2025-11-09
 review_cycle: Annual
 notes: UI modernization decision; metadata aligned to governance policy.
 ---
 
-# 13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell
-*(Status: Draft — 2027-03-14)*
+# 13-ADR-001 — Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell
+*(Status: Draft — 2025-11-09)*
 
 **Section ID:** 13 | **Version:** 0.1.0  
 **Related SRS:** `13_UI_Framework_UX.md`  
@@ -26,7 +26,7 @@ notes: UI modernization decision; metadata aligned to governance policy.
 
 ## 1) Context
 
-Section 13 defines how Nexus manages its presentation layer while modernizing beyond
+Section 13 defines how AgOpenNext manages its presentation layer while modernizing beyond
 the legacy WinForms UI used in AgOpenGPS v6. Operators still rely on that interface
 daily, but the SRS requires a **cross-platform desktop shell**, **metadata-driven
 dashboards**, and **run-mode parity** across Windows and Linux.  
@@ -36,7 +36,7 @@ but maintaining those toolchains separately from Core added complexity and fract
 the contributor base. A shared, managed UI framework is required to unify the visual
 and runtime layers under a single toolchain.
 
-**Avalonia 12 LTS** provides a modern, .NET-native, cross-platform framework that runs on
+**Avalonia 12** provides a modern, .NET-native, cross-platform framework that runs on
 Windows and Linux, aligning directly with the runtime chosen in `12-ADR-001` and
 supporting future mobile and companion use cases without a full rewrite of existing
 view models.
@@ -45,7 +45,7 @@ view models.
 
 ## 2) Decision
 
-Adopt **Avalonia 12 LTS** as the **primary desktop shell** for Nexus.
+Adopt **Avalonia 12** as the **primary desktop shell** for AgOpenNext.
 Legacy **WinForms** remains the fallback interface during the transition.
 
 - Avalonia projects will host shared **view models**, **theming system**, and
@@ -68,7 +68,7 @@ Legacy **WinForms** remains the fallback interface during the transition.
   view-models.  
 - Enables **metadata-driven dashboards** and run-mode toggles without duplicating
   logic across frameworks.  
-- Keeps Nexus development within the **.NET 10 LTS** ecosystem, maximizing reuse of
+- Keeps AgOpenNext development within the **.NET 10** ecosystem, maximizing reuse of
   existing tools and contributor expertise.
 
 ### Negative / Mitigated Impacts
@@ -90,7 +90,7 @@ Legacy **WinForms** remains the fallback interface during the transition.
 
 ## 4) Rationale
 
-Avalonia 12 LTS satisfies the modernization goals of §13 — portability, accessibility, and
+Avalonia 12 satisfies the modernization goals of §13 — portability, accessibility, and
 metadata-driven expansion — without leaving the .NET ecosystem.
 Qt/C++ and hybrid web dashboards introduce additional toolchains and dependency
 management overhead, while Avalonia delivers cross-platform parity within the same
@@ -111,7 +111,7 @@ language, runtime, and CI infrastructure already adopted for Core and AgIO.
 ## 6) Governance
 
 - **Ownership:** UI Working Group  
-- **Review Cadence:** Quarterly UX reviews or upon Avalonia LTS releases  
+- **Review Cadence:** Quarterly UX reviews or upon new Avalonia releases  
 - **Success Metrics:** Accessibility compliance, input latency/FPS benchmarks,
   metadata-widget adoption metrics  
 - **Retirement Plan:** Deprecate WinForms once Avalonia meets parity and operator
@@ -123,7 +123,8 @@ language, runtime, and CI infrastructure already adopted for Core and AgIO.
 
 | Version | Date | Changes | Author | PR / Issue |
 |---------|------|---------|--------|------------|
-| 0.1.0 | 2025-10-20 | Initial draft adopting Avalonia as desktop shell. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-11-02 | Updated scope for Avalonia 12 alignment with .NET 10 migration. | Nexus Team (Codex) |  |
 | 0.1.0 | 2025-10-25 | Replaced WPF references with Qt lineage, aligned context and governance. | Nexus Team (Codex) |  |
-| 0.1.0 | 2027-03-14 | Updated scope for Avalonia 12 LTS alignment with .NET 10 migration. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-10-20 | Initial draft adopting Avalonia as desktop shell. | Nexus Team (Codex) |  |
+
 

@@ -20,13 +20,13 @@ notes: OS coverage requirements; metadata aligned to governance policy.
 
 **Section ID:** 11 | **Version:** 0.1.0  
 **Related Sections:** 12 — Development Language & Runtime, 14 — Build Environment & Tooling  
-**Related Decisions:** `11-ADR-001 — Establish Windows & Linux Support Baseline`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell`  
+**Related Decisions:** `11-ADR-001 — Establish Windows & Linux Support Baseline`, `12-ADR-001 — Adopt .NET 10 Runtime`, `13-ADR-001 — Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell`  
 **Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
 **Downstream Impacts:** 5X — Hardware I/O Device Layer, 9X — Frontends & Ops
 
 ## 11.1 Purpose & Scope
 
-Define operating system (OS) coverage for Nexus.  
+Define operating system (OS) coverage for AgOpenNext.  
 This section establishes expectations for where the application **must** or **should** run at the OS level, and how hardware I/O behaves consistently across supported platforms.
 
 It also outlines the boundaries between the Core (backend/runtime) and UI (frontend) layers with respect to OS dependencies.
@@ -39,9 +39,9 @@ It also outlines the boundaries between the Core (backend/runtime) and UI (front
 ## 11.2 Context
 
 - Depends on the unified runtime defined in §12 (Development Language & Runtime) and the chosen cross-platform UI framework in §13.  
-- Interacts with AgIO and related hardware I/O subsystems for serial, UDP, and CAN communication (see §5X).  
+- Interacts with AgIO Hardware Abstraction and related hardware I/O subsystems for serial, UDP, and CAN communication (see §5X).  
 - OS-level considerations directly influence build tooling (§14) and deployment packaging (§15).  
-- Out of scope: service/headless modes, containerization, mobile companion specifics, or packaging formats.
+- Out of scope: containerization, mobile companion specifics, or packaging formats.
 
 
 ## 11.3 Legacy Comparison
@@ -62,7 +62,7 @@ Describe how legacy or prior implementations handled this capability.
 
 | Term | Definition |
 |------|-------------|
-| **AgIO** | Core hardware I/O subsystem responsible for serial, UDP, and CAN communication. Provides a consistent abstraction layer across supported operating systems. |
+| **AgIO Hardware Abstraction** | Core hardware I/O subsystem responsible for serial, UDP, and CAN communication. Provides a consistent abstraction layer across supported operating systems. |
 | **Platform Tier** | Classification describing the level of official support (e.g., *Primary* for fully tested field targets, *Secondary* for companion or development use). |
 | **Cross-Platform Runtime** | The managed runtime and supporting framework stack (e.g., .NET + UI toolkit) enabling builds for multiple desktop or embedded OS targets. |
 | **Full Stack Support** | Deployment mode where both Core and UI run on the same device with direct hardware access. |
@@ -189,7 +189,7 @@ Defines how compliance with § 11.5 requirements will be validated and documente
 
 | Option ID | Status | Type / Theme | Description | Reference Document |
 |------------|--------|---------------|-------------|--------------------|
-| **11-O1** | Accepted | Unified runtime | Single **.NET 10 + Avalonia 12 LTS** stack producing both Windows and Linux builds from one solution. Establishes the baseline “full stack” target set. | ADR 11-001 — Target OS Prioritization |
+| **11-O1** | Accepted | Unified runtime | Single **.NET 10 + Avalonia 12** stack producing both Windows and Linux builds from one solution. Establishes the baseline “full stack” target set. | ADR 11-001 — Target OS Prioritization |
 | **11-O2** | Proposed | Mobile / Embedded Expansion | Extend full-stack capability to **Android** devices with sufficient hardware (e.g., rugged tablets) using the same codebase and minimal runtime differences. | *Future ADR* |
 | **11-O3** | Proposed | Companion Extension | Provide a **companion-only iOS build** capable of remote UI connection to Core over local network. | *Future ADR* |
 | **11-O4** | Proposed | macOS support | Add **macOS** as an optional desktop environment for analysis, playback, or bench testing; not required for field use. | *Future ADR* |
@@ -205,7 +205,7 @@ Defines how compliance with § 11.5 requirements will be validated and documente
 
 | Attribute / Criteria | 11-O1 | 11-O2 | 11-O3 | 11-O4 | 11-O5 |
 |----------------------|-------|-------|-------|-------|-------|
-| Core Approach | Shared .NET 10 / Avalonia 12 LTS runtime for Windows + Linux | Extend full-stack to Android | Add iOS companion app | Add macOS desktop parity build | Define Raspberry Pi OS under Linux tier |
+| Core Approach | Shared .NET 10 / Avalonia 12 runtime for Windows + Linux | Extend full-stack to Android | Add iOS companion app | Add macOS desktop parity build | Define Raspberry Pi OS under Linux tier |
 | Implementation Effort | Medium | High | Medium | Medium | Low |
 | Maintainability | High | Medium | High | Medium | High |
 | Performance Potential | High | Medium | Medium | High | Medium |

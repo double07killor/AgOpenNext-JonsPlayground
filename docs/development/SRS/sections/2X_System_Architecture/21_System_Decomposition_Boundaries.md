@@ -20,18 +20,18 @@ notes: Architecture decomposition overview; metadata updated per governance poli
 
 **Section ID:** 21 | **Version:** 0.1.0  
 **Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 13 — UI Framework & UX  
-**Related Decisions:** `11-ADR-001 — Establish Windows & Linux Support Baseline`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell`  
+**Related Decisions:** `11-ADR-001 — Establish Windows & Linux Support Baseline`, `12-ADR-001 — Adopt .NET 10 Runtime`, `13-ADR-001 — Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell`  
 **Upstream Dependencies:** 1X — Platform Foundations, 4X — Interprocess Communications  
 **Downstream Impacts:** 3X — Data Storage, 5X — Hardware I/O Device Layer
 
 ## 21.1 Purpose & Scope
 
-This section defines how **Nexus** is decomposed into its primary **logical domains**—such as guidance, mapping, I/O, automation, and simulation—and outlines the **candidate deployment boundaries** between core services, AgIO, UI hosts, and SDK-driven plugins.
+This section defines how **AgOpenNext** is decomposed into its primary **logical domains**—such as guidance, mapping, I/O, automation, and simulation—and outlines the **candidate deployment boundaries** between core services, AgIO, UI hosts, and SDK-driven plugins.
 
 Its purpose is to provide a **decision-agnostic framework** for understanding and discussing system structure. Specific architectural selections (e.g., where boundaries are enforced, which layers are modularized, and how components communicate) will be documented in §21.14 _Options_ and corresponding ADRs.
 
 This section establishes:
-- A shared vocabulary for describing Nexus subsystems and their relationships.  
+- A shared vocabulary for describing AgOpenNext subsystems and their relationships.  
 - The **architectural forces and constraints** that drive decomposition decisions.  
 - The **evaluation criteria** to be applied when comparing alternative system shapes.
 
@@ -56,7 +56,7 @@ community-driven extensions.
 
 ## 21.3 Core Functional Domains
 
-This section defines the major runtime functions Nexus must provide.  
+This section defines the major runtime functions AgOpenNext must provide.  
 These domains describe **what the system does**, not **how it is packaged**.
 
 Each domain may be:
@@ -65,7 +65,7 @@ Each domain may be:
 - **Isolated** as a separate service or bridge.
 
 Packaging choices are outside the scope of this section and will be resolved in option analyses and ADRs.  
-The purpose here is to identify the capabilities Nexus must deliver in-field and define clear, separable concerns.
+The purpose here is to identify the capabilities AgOpenNext must deliver in-field and define clear, separable concerns.
 
 These domains form the logical architecture baseline referenced by later decomposition and interface diagrams (§21.5–§21.9).
 
@@ -159,7 +159,7 @@ These domains form the logical architecture baseline referenced by later decompo
 - Provides a **hardware abstraction layer (HAL)** for Raspberry Pi / CM5-based deployments.  
 - Exposes GPIO, I²C, SPI, and CAN interfaces through a unified internal API.  
 - Bridges Core message surfaces to physical drivers with deterministic scheduling for steering and section loops.  
-- Serves as the **reference hardware I/O stack** for embedded Nexus builds, keeping Core and AgIO logic OS-neutral.
+- Serves as the **reference hardware I/O stack** for embedded AgOpenNext builds, keeping Core and AgIO logic OS-neutral.
 
 ---
 
@@ -193,7 +193,7 @@ These extensions are out of scope for Core verification but serve as forward ref
 
 ## 21.4 Data & Interface Contracts
 
-This section defines how Nexus components must exchange information in a consistent and verifiable manner, regardless of future architectural or packaging decisions.  
+This section defines how AgOpenNext components must exchange information in a consistent and verifiable manner, regardless of future architectural or packaging decisions.  
 The goal is to ensure that all runtime data—whether internal or external—remains **typed, versioned, and deterministic**, independent of how it is transported or implemented.
 
 ---
@@ -247,7 +247,7 @@ To maintain deterministic operation:
 ---
 
 ### 21.4.6 Summary
-This section establishes the requirement that Nexus data exchange be **schema-defined, versioned, deterministic, and transport-neutral**.  
+This section establishes the requirement that AgOpenNext data exchange be **schema-defined, versioned, deterministic, and transport-neutral**.  
 Whether realized through shared libraries, inter-process APIs, or modular boundaries will be determined by later option analyses and ADRs.  
 The principle is that every participant in the system—core logic, external tool, or future extension—must speak the same verifiable language of data.
 
@@ -385,7 +385,7 @@ The focus is therefore on **determinism, sequencing, and data flow** between dom
 
 ## 21.8 Deployment & Platform Considerations
 
-Nexus must execute consistently across supported operating environments without changing functional behavior.  
+AgOpenNext must execute consistently across supported operating environments without changing functional behavior.  
 The deployment model (desktop, embedded, or containerized) affects packaging, not runtime logic.
 
 - **Platform Parity:** Core, AgIO, and UI components must produce identical results across Linux, Windows, and embedded CM-class boards.  
@@ -509,7 +509,7 @@ Verification artifacts link to test cases and automated regression logs in CI pi
 
 ## 21.14 Option References
 
-Option subsections (§21-O1 … 21-O7) define detailed architectural alternatives evaluated for Nexus.  
+Option subsections (§21-O1 … 21-O7) define detailed architectural alternatives evaluated for AgOpenNext.  
 Each option will document:
 - Assumed domain structure and deployment model,  
 - Quantitative metrics (determinism, maintainability, complexity), and  

@@ -3,7 +3,7 @@ title: 13 — UI Framework & UX
 version: 0.1.0
 status: Draft
 authors:
-  - Nexus Team (Codex)
+  - AgOpenNext Team (Codex)
 owner: Systems Engineering & Documentation Lead
 reviewers:
   - Systems Engineering Team
@@ -20,13 +20,13 @@ notes: UI/UX modernization goals; governance metadata applied.
 
 **Section ID:** 13 | **Version:** 0.1.0  
 **Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 9X — Frontends & Ops  
-**Related Decisions:** `13-ADR-001 — Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell`, `12-ADR-001 — Adopt .NET 10 LTS Runtime`  
+**Related Decisions:** `13-ADR-001 — Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell`, `12-ADR-001 — Adopt .NET 10 Runtime`
 **Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
 **Downstream Impacts:** 9X — Frontends & Ops, Training & User Experience
 
 ## 13.1 Purpose & Scope
 
-Define the presentation technologies, layout systems, and UX policies for Nexus desktop and companion clients.
+Define the presentation technologies, layout systems, and UX policies for AgOpenNext desktop and companion clients.
 Balance legacy WinForms expectations with modernization via Avalonia and remote client strategies; WPF maintenance is explicitly out of scope.
 
 ---
@@ -40,7 +40,7 @@ Balance legacy WinForms expectations with modernization via Avalonia and remote 
 
 ### Journeys to keep in mind
 
-- **Operator upgrading in the cab:** Runs daily work on AgOpenGPS v6 WinForms and evaluates Nexus Avalonia builds on spare hardware without risking production rigs.
+- **Operator upgrading in the cab:** Runs daily work on AgOpenGPS v6 WinForms and evaluates AgOpenNext Avalonia builds on spare hardware without risking production rigs.
 - **QA verifying run modes:** Uses the Avalonia shell to swap between LocalInProc and CompanionRemote, ensuring the same dashboard cards appear without manual window reshuffling.
 - **Dealer supporting a headless rig:** Runs Avalonia on a Windows laptop while connected to a Linux Core over gRPC, confirming metadata-driven dashboards populate automatically.
 
@@ -84,8 +84,8 @@ Balance legacy WinForms expectations with modernization via Avalonia and remote 
 | R-UI-005 | SHOULD | Remote Clients | Enable frontends that attach to headless Core via gRPC/Web transport. | Remote client plan | End-to-end remote client demo |
 | R-UI-006 | COULD | Cross-platform Stacks | Evaluate kiosk-friendly cross-platform stacks (Qt, Avalonia, Web). | Linux Core roadmap | Comparative spike reports |
 | R-UI-007 | SHOULD | Accessibility | Support high-DPI scaling, contrast presets, localization hooks. | Accessibility WG | Accessibility test matrix |
-| R-UI-008 | MUST | Shared Mobile Shell | Keep Avalonia project free of platform-specific forks for mobile builds. | 13-ADR-001 Avalonia 12 LTS UI | Mobile CI builds |
-| R-UI-009 | SHOULD | Run-mode Toggles | Provide configuration surface for run-mode switching. | 13-ADR-001 Avalonia 12 LTS UI | QA scenarios covering run modes |
+| R-UI-008 | MUST | Shared Mobile Shell | Keep Avalonia project free of platform-specific forks for mobile builds. | 13-ADR-001 Avalonia 12 UI | Mobile CI builds |
+| R-UI-009 | SHOULD | Run-mode Toggles | Provide configuration surface for run-mode switching. | 13-ADR-001 Avalonia 12 UI | QA scenarios covering run modes |
 
 > **Why it matters:** These requirements let today’s operators trust the WinForms UI, show what Avalonia adds (touch layouts, metadata dashboards), and guarantee remote clients see the same widgets without custom coding.
 
@@ -96,7 +96,7 @@ Balance legacy WinForms expectations with modernization via Avalonia and remote 
 | R-UI-000 | Production deployments | Preserve current operator workflows during transition. |
 | R-UI-004 | Metadata-driven dashboards option (9X) | Accelerate UI iteration without code changes. |
 | R-UI-005 | Linux Core roadmap | Ensure headless deployments still deliver UX. |
-| R-UI-008 | 13-ADR-001 Avalonia 12 LTS UI | Keep shared codebase across desktop/mobile. |
+| R-UI-008 | 13-ADR-001 Avalonia 12 UI | Keep shared codebase across desktop/mobile. |
 
 ---
 
@@ -165,11 +165,11 @@ Balance legacy WinForms expectations with modernization via Avalonia and remote 
 
 ## 13.10 Option Overview
 
-Define viable UI framework and UX strategy options for Nexus, balancing modernization with operator familiarity.
+Define viable UI framework and UX strategy options for AgOpenNext, balancing modernization with operator familiarity.
 
 | Option ID | Status | Type / Theme | Description | Reference Document |
 |-----------|--------|--------------|-------------|--------------------|
-| **13-O1** | Proposed | Cross-Platform Desktop | Use **Avalonia 12 LTS** as the modern desktop shell for Windows and Linux, sharing view models, layouts, and theming across platforms. | `13-ADR-001 - Adopt Avalonia 12 LTS for the Nexus Desktop UI Shell.md` |
+| **13-O1** | Proposed | Cross-Platform Desktop | Use **Avalonia 12** as the modern desktop shell for Windows and Linux, sharing view models, layouts, and theming across platforms. | `13-ADR-001 - Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell.md` |
 | **13-O2** | Retained | Legacy Compatibility | Maintain **WinForms (v6)** as the stable, production-proven UI during the transition to Avalonia. | `Legacy SourceCode/V6/` |
 | **13-O3** | Exploratory | Web / Companion UX | Evaluate **web-based dashboards** (e.g., Blazor Hybrid or WebAssembly) to connect to headless Core instances via gRPC/WebSocket. | `docs/UI/web-ui-concepts.md` *(placeholder)* |
 
@@ -230,7 +230,7 @@ Define viable UI framework and UX strategy options for Nexus, balancing moderniz
 
 ## 13.15 Community Sentiment
 
-- Operators request gradual transition; WinForms must remain stable via the existing v6 distribution while Nexus matures separately.
+- Operators request gradual transition; WinForms must remain stable via the existing v6 distribution while AgOpenNext matures separately.
 - Contributors endorse Avalonia due to shared C# skill set and mobile ambitions.
 - UX working group emphasizes metadata-driven approach to reduce manual dashboard wiring.
 
@@ -241,7 +241,7 @@ Define viable UI framework and UX strategy options for Nexus, balancing moderniz
 | R-UI-000 | — | — | `tes../UI/winforms-smoke/` | `Legacy SourceCode -V6/SourceCode/GPS/` |
 | R-UI-004 | 9X Consideration C3 | — | `dem../UI/metadata-dashboard/` | `docs/sections/9X_Frontends_Ops/91_UI_Shell_Layout.md#919-design-considerations` |
 | R-UI-005 | — | 11-ADR-001 | `tes../UI/remote-client/` | `deployment/companion/` |
-| R-UI-008 | 11-O1 | 11-ADR-001 | `pipelines/ui-avalonia.yml` | `Nexus SourceCode/src/Aog.UI.Avalonia/` |
+| R-UI-008 | 11-O1 | 11-ADR-001 | `pipelines/ui-avalonia.yml` | `AgOpenNext SourceCode/src/Aog.UI.Avalonia/` |
 
 ---
 

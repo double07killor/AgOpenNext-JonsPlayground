@@ -148,6 +148,24 @@ Third-party components remain under their respective licenses.
 - [Documentation Index](./docs/README.md)
 - [Roadmap](./docs/ROADMAP.md)
 - [SRS Overview](./docs/development/SRS/00_ReadMe.md)
+
+## Ongoing Discussions
+
+### Charter-level discussions (`docs/PROJECT_CHARTER.md`)
+
+These topics remain under active discussion within the community and may inform future charter updates or ADRs. They represent naming, platform, and structural decisions that are not yet finalized but influence long-term direction.
+
+| Topic | Summary | Current Status |
+|-----------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| **Project Codename** | Whether to retain **AgOpenNext** or adopt an alternate such as *AgOpenGPS Next*, *AgNext*, or *AgOpenGPS Nexus*. Final name will serve as the bridge between the v6 lineage and future v7 release. | AgOpenNext favored; open for feedback. |
+| **First GA Release Name** | Determining what to call the first general-availability release: continue using the codename (*AgOpenNext v1.0*) or formally resume the legacy naming as **AgOpenGPS v7.0** to maintain continuity with previous versions. | Community leaning toward **AgOpenGPS v7.0** to signal a direct, modern continuation of the AgOpenGPS line. |
+| **Domain Terminology** | What to call individual core domains—built-in and community. “Modules” currently refers to hardware PCBs; “plugins” suits community extensions; “blocks” is also used informally. Architectural boundaries are defined, but naming remains undecided. | Decision pending; may standardize through early ADRs. |
+| **Runtime Version Policy** | Defining the target policy for **.NET** and **Avalonia** versions (latest stable vs qualified LTS). Current practice is “latest stable combination verified by CI.” | Ongoing; documented in §5.1. |
+| **Headless / Remote UI Strategy** | How to handle headless operation and remote UIs. Android is popular as a first-class runtime; Android/iOS companions may leverage a UI-bridge interface for lightweight remote control. | Architectural support in place; implementation priority TBD. |
+| **AgIO Naming / Scope** | Decide whether the hardware abstraction layer should retain the historical name **AgIO**, be renamed to a more generic “Hardware Abstraction,” or formally adopt **AgIO Hardware Abstraction**. Impacts docs, code namespace, and messaging to new contributors. | Leaning toward keeping **AgIO** for continuity; scope clarification via early ADR. |
+| **Serial vs UDP for Control Modules** | Whether to continue supporting **direct USB serial** for control modules or move exclusively to **UDP-based** communications. Serial is convenient for bench testing and legacy installs; UDP simplifies architecture and multi-module setups. GNSS serial remains in scope. | Tentative compromise: keep serial but mark as “legacy / not recommended” for field use. |
+
+*Tracking note: this section mirrors `docs/PROJECT_CHARTER.md#e-ongoing-discussions`. Add other documents as new subheadings here once they expose their own living discussion lists.*
 - [Meet the Team](./docs/team/README.md)
 
 

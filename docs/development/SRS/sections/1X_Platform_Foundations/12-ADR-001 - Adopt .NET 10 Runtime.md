@@ -1,5 +1,5 @@
 ---
-title: ADR 12-001 — Adopt .NET 10 LTS Runtime Across Nexus
+title: ADR 12-001 — Adopt .NET 10 Runtime Across AgOpenNext
 version: 0.1.0
 status: Draft
 authors:
@@ -16,7 +16,7 @@ review_cycle: Annual
 notes: Runtime selection decision; metadata per governance policy.
 ---
 
-# 12-ADR-001 — Adopt .NET 10 LTS Runtime Across Nexus
+# 12-ADR-001 — Adopt .NET 10 Runtime Across AgOpenNext
 *(Status: Draft — 2027-03-14)*
 
 **Section ID:** 12 | **Version:** 0.1.0  
@@ -27,32 +27,32 @@ notes: Runtime selection decision; metadata per governance policy.
 
 ## 1) Context
 
-Section 12 defines the runtime and language policies governing all Nexus components.  
+Section 12 defines the runtime and language policies governing all AgOpenNext components.  
 Legacy AgOpenGPS releases mixed **.NET Framework**, **.NET 6**, and native utilities,
 resulting in divergent build pipelines, inconsistent Linux support, and plugin
 incompatibilities.
 
 Sections 11 and 14 introduce new requirements for reproducible cross-platform builds
 and deterministic tooling. To satisfy these, all managed components — including Core,
-UI, AgIO, and CLI — must share a single long-term-support runtime.
+UI, AgIO, and CLI — must share a single supported runtime.
 
-**.NET 10 LTS** (supported through November 2028) provides the required cross-platform
-JIT, SDK, and CI tooling for both Windows and Linux targets. It also enables Avalonia
-and NativeAOT development without fragmenting the stack.
+The .NET 10 release provides the required cross-platform JIT, SDK, and CI tooling for
+both Windows and Linux targets. It also enables Avalonia and NativeAOT development
+without fragmenting the stack.
 
 ---
 
 ## 2) Decision
 
-Adopt **.NET 10 LTS** as the managed runtime for all Nexus managed components until a
-new LTS migration ADR supersedes this one.
+Adopt **.NET 10** as the managed runtime for all AgOpenNext managed components until a
+future migration ADR supersedes this one.
 
 - All projects **must target** `net10.0` (or `net10.0-windows`, `net10.0-linux`, etc. as
   needed for platform-specific assets).
 - CI and local environments **must use** the .NET 10 SDK pinned via `global.json`.
 - NativeAOT or trimming experiments **may** proceed if outputs remain compatible with
   .NET 10 tooling and pass §11 smoke tests.
-- Runtime upgrades follow Microsoft’s LTS cadence; evaluate previews but do not adopt
+- Runtime upgrades follow Microsoft’s stable release cadence; evaluate previews but do not adopt
   until a successor ADR is approved.
 
 ---
@@ -68,7 +68,7 @@ new LTS migration ADR supersedes this one.
 - Requires migration of legacy .NET Framework projects. *Mitigation:* adapter shims and
   migration guides.  
 - Slightly higher hardware/runtime requirements. *Mitigation:* document minimum specs in §11.  
-- Future LTS transitions require planning. *Mitigation:* annual review and evergreen upgrade backlog.
+- Future runtime transitions require planning. *Mitigation:* annual review and evergreen upgrade backlog.
 
 ### Follow-Up Actions
 - Audit all solutions for `TargetFramework` entries =`net10.0`.
@@ -79,8 +79,8 @@ new LTS migration ADR supersedes this one.
 
 ## 4) Rationale
 
-.NET 10 LTS delivers the cross-platform stability, runtime features, and toolchain
-maturity needed for Nexus. Remaining on .NET Framework or adopting non-LTS runtimes
+.NET 10 delivers the cross-platform stability, runtime features, and toolchain
+maturity needed for AgOpenNext. Remaining on .NET Framework or adopting unstable runtimes
 would violate §11 and §12 requirements for OS parity, determinism, and maintainability.
 
 ---
@@ -90,7 +90,7 @@ would violate §11 and §12 requirements for OS parity, determinism, and maintai
 | Option | Summary | Outcome |
 |---------|----------|----------|
 | Windows-only .NET Framework | Continue shipping legacy runtime for Windows builds only. | **Rejected** — fails cross-platform and modern tooling requirements. |
-| Adopt .NET 9 or preview builds | Use short-term or unstable runtimes. | **Rejected** — non-LTS and upgrade churn increase maintenance cost. |
+| Adopt .NET 9 or preview builds | Use short-term or unstable runtimes. | **Rejected** — unsupported runtimes and upgrade churn increase maintenance cost. |
 | Move to native C++/Qt stack | Rewrite outside the .NET ecosystem. | **Rejected** — prohibitively expensive and breaks existing code and plugins. |
 
 ---
@@ -98,9 +98,9 @@ would violate §11 and §12 requirements for OS parity, determinism, and maintai
 ## 6) Governance
 
 - **Ownership:** Platform Foundations Working Group.  
-- **Review Cadence:** Annual or when a new Microsoft LTS runtime is announced.  
+- **Review Cadence:** Annual or when Microsoft announces a new runtime release.  
 - **Artifacts:** `global.json`, runtime compliance dashboard, analyzer configurations.  
-- **Exit Criteria:** Superseded by a future ADR that adopts the next LTS version.
+- **Exit Criteria:** Superseded by a future ADR that adopts the next supported runtime.
 
 ---
 
@@ -118,7 +118,9 @@ would violate §11 and §12 requirements for OS parity, determinism, and maintai
 
 | Version | Date | Changes | Author | PR / Issue |
 |---------|------|---------|--------|------------|
-| 0.1.0 | 2025-10-20 | Initial adoption of .NET 8 LTS runtime. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2025-11-02 | Elevated runtime baseline to .NET 10 and refreshed governance. | Nexus Team (Fortney) |  |
 | 0.1.0 | 2025-10-25 | Clarified NativeAOT scope and dependency governance linkage. | Nexus Team (Fortney) |  |
-| 0.1.0 | 2027-03-14 | Elevated runtime baseline to .NET 10 LTS and refreshed governance. | Nexus Team (Fortney) |  |
+| 0.1.0 | 2025-10-20 | Initial adoption of the .NET 8 runtime. | Nexus Team (Fortney) |  |
+
+
 

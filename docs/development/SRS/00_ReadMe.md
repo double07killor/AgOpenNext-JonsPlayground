@@ -171,7 +171,7 @@ Returning contributors can skip straight to sections flagged "Under review" or "
 - [ISOBUS section control](references/ISOBUS_Section_Control.md)
 
 ### ADR index
-- [12-ADR-001 — .NET 10 runtime](sections/1X_Platform_Foundations/12-ADR-001 - Adopt .NET 10 LTS Runtime.md)
+- [12-ADR-001 — .NET 10 runtime](sections/1X_Platform_Foundations/12-ADR-001 - Adopt .NET 10 Runtime.md)
 
 
 ## Workflow expectations

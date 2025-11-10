@@ -20,26 +20,26 @@ notes: Runtime and dependency governance; updated per metadata standard.
 
 **Section ID:** 12 | **Version:** 0.1.0  
 **Related Sections:** 11 — Operating System Support, 14 — Build Environment & Tooling  
-**Related Decisions:** `12-ADR-001 — Adopt .NET 10 LTS Runtime`, `11-ADR-001 — Establish Windows & Linux Support Baseline`  
+**Related Decisions:** `12-ADR-001 — Adopt .NET 10 Runtime`, `11-ADR-001 — Establish Windows & Linux Support Baseline`
 **Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
 **Downstream Impacts:** 6X — Core Domain Services, 9X — Frontends & Ops
 
 ## 12.1 Purpose & Scope  
 
-This section defines the **language, runtime, and dependency policies** that govern all Nexus codebases.  
+This section defines the **language, runtime, and dependency policies** that govern all AgOpenNext codebases.  
 It ensures contributors use a common runtime environment and development toolchain, producing predictable, reproducible, and portable builds across Windows and Linux.  
 It also defines boundaries for dependency management and contract versioning so that plugins, AgIO, and user interfaces can interoperate without breaking compatibility.  
 
 > **Plain summary:**  
-> Everyone writing Nexus code uses the same managed runtime, follows shared dependency rules, and relies on common interface contracts so everything behaves the same on all platforms.  
+> Everyone writing AgOpenNext code uses the same managed runtime, follows shared dependency rules, and relies on common interface contracts so everything behaves the same on all platforms.  
 
 ---
 
 ## 12.2 Context  
 
-- All Nexus components share a managed runtime that supports both Windows and Linux as defined in §11 (`11-ADR-001`).
+- All AgOpenNext components share a managed runtime that supports both Windows and Linux as defined in §11 (`11-ADR-001`).
 - Prior versions of AgOpenGPS mixed .NET Framework, WPF, and native utilities, leading to inconsistent build behavior.  
-- The modern Nexus stack aims to unify runtime, language, and dependency handling across Core, AgIO, UI, and CLI tools.  
+- The modern AgOpenNext stack aims to unify runtime, language, and dependency handling across Core, AgIO, UI, and CLI tools.  
 - Build environment and CI enforcement are covered in §14, while this section defines the policies that those builds must enforce.  
 
 ---
@@ -48,7 +48,7 @@ It also defines boundaries for dependency management and contract versioning so 
 
 | Area / Theme | Legacy Behavior | Identified Limitation | Modernization Opportunity | Reference / Source |
 |---------------|-----------------|------------------------|---------------------------|--------------------|
-| Runtime Mix | Combination of .NET Framework, .NET Core 6, and native executables. | Inconsistent APIs and build pipelines. | Migrate all managed components to a single LTS runtime. | AOG v6 Source Analysis |
+| Runtime Mix | Combination of .NET Framework, .NET Core 6, and native executables. | Inconsistent APIs and build pipelines. | Migrate all managed components to a single supported runtime. | AOG v6 Source Analysis |
 | Dependency Governance | Ad-hoc package additions per project. | Version drift, missing Linux validation. | Curated dependency allowlist reviewed through CI. | Contributor discussions |
 | Plugin Contracts | Manual interface definitions shared by copy. | Frequent breakage across versions. | Centralized, versioned contract libraries. | Plugin WG notes |
 | Build Reproducibility | No consistent toolchain pinning. | Builds vary between machines. | Enforce deterministic builds and SDK pinning. | Build WG proposal |
@@ -59,7 +59,7 @@ It also defines boundaries for dependency management and contract versioning so 
 
 | Term | Definition |
 |------|-------------|
-| **Managed Runtime** | The long-term-support runtime (e.g., .NET LTS) used to execute compiled assemblies. |
+| **Managed Runtime** | The stable, supported runtime (e.g., the current .NET release maintained by Microsoft) used to execute compiled assemblies. |
 | **Contract Package** | A shared, versioned interface definition library used by Core, UI, AgIO, and plugins. |
 | **Deterministic Build** | A build process that produces identical artifacts from identical inputs. |
 | **Allowlist** | A formally reviewed list of approved dependencies and their versions. |
@@ -77,7 +77,7 @@ It also defines boundaries for dependency management and contract versioning so 
 
 | ID | Priority | Category | Summary | Source / C-IDs | Key Metrics / Verification |
 |----|-----------|-----------|----------|----------------|-----------------------------|
-| **R-STACK-001** | **MUST** | Runtime | Use a single long-term-support managed runtime across all Nexus projects (`12-ADR-001`). | Architecture WG | CI confirms all projects target the same TFM. |
+| **R-STACK-001** | **MUST** | Runtime | Use a single managed runtime across all AgOpenNext projects (`12-ADR-001`). | Architecture WG | CI confirms all projects target the same TFM. |
 | **R-STACK-002** | **MUST** | Language | Use C# as the implementation language for Core, UI, and AgIO. Shared contract packages MUST be consumable by other languages without modification. | Core WG | Contract build produces valid stubs for all languages. |
 | **R-STACK-003** | **MUST** | Build Integrity | Pin SDK and dependency versions to ensure deterministic builds. | Build WG | Hash comparison between builds is identical. |
 | **R-STACK-004** | **MUST** | Abstraction | Contain all OS-specific or hardware-specific logic behind dependency-injected interfaces. | AgIO WG | Swappable backend tests pass on both Windows and Linux. |
@@ -146,10 +146,10 @@ It also defines boundaries for dependency management and contract versioning so 
 | **C4** | Dependency Hygiene | Keeps supply chain secure and licenses transparent. |
 | **C5** | Native Hooks | Provides optional performance paths while keeping portability. |
 
-**Assumptions:**  
-- Contributors can install the chosen LTS runtime on Windows or Linux.  
-- CI agents mirror contributor toolchains.  
-- Plugin maintainers test against contract compatibility suites.  
+- **Assumptions:**  
+  - Contributors can install the chosen managed runtime on Windows or Linux.  
+  - CI agents mirror contributor toolchains.  
+  - Plugin maintainers test against contract compatibility suites.  
 
 ---
 
@@ -157,7 +157,7 @@ It also defines boundaries for dependency management and contract versioning so 
 
 | Option ID | Status | Type / Theme | Description | Reference Document |
 |------------|--------|--------------|-------------|--------------------|
-| **12-O1** | Proposed | Runtime Policy | Use a single LTS managed runtime and unified toolchain. | 12-O1_Runtime_Policy.md |
+| **12-O1** | Proposed | Runtime Policy | Use a single managed runtime and unified toolchain. | 12-O1_Runtime_Policy.md |
 | **12-O2** | Proposed | Contract Governance | Define semantic versioning and compatibility tests for shared packages. | 12-O2_Contract_Governance.md |
 
 > **Informative:**  
