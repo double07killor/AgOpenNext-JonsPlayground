@@ -65,73 +65,17 @@ Returning contributors can skip straight to sections flagged "Under review" or "
 - [Working notes](NOTES.md)
 
 ### Section catalog
-#### 1X — Platform Foundations
 - [11 — OS Support](sections/1X_Platform_Foundations/11_OS_Support.md)
-- [12 — Development Language & Runtime](sections/1X_Platform_Foundations/12_Development_Language_Runtime.md)
-- [13 — UI Framework & UX Language](sections/1X_Platform_Foundations/13_UI_Framework_UX.md)
-- [14 — Build Environment & Tooling](sections/1X_Platform_Foundations/14_Build_Tooling.md)
+- [12 — Language & Runtime](sections/1X_Platform_Foundations/12_Development_Language_Runtime.md)
+- [13 — UI Framework & UX](sections/1X_Platform_Foundations/13_UI_Framework_UX.md)
+- [14 — Build & Tooling](sections/1X_Platform_Foundations/14_Build_Tooling.md)
+- [21 — Decomposition](sections/2X_System_Architecture/21_System_Decomposition_Boundaries.md)
 
-#### 2X — System Architecture
-- [21 — System Decomposition & Boundaries](sections/2X_System_Architecture/21_System_Decomposition_Boundaries.md)
-
-
-#### Proposed:
-
--Below this is all proposed
-
-
-#### 2X — System Architecture
-- [22 — Process Model & Deployment Topologies](sections/2X_System_Architecture/22_Process_Model_Deployment.md)
-- [23 — Threading, Scheduling & Timing](sections/2X_System_Architecture/23_Threading_Scheduling_Timing.md)
-- [24 — Configuration & Environment](sections/2X_System_Architecture/24_Configuration_Environment.md)
-- [26 — Units, Conventions & Coordinate Systems](sections/2X_System_Architecture/26_Units_Conventions_Coordinate_Systems.md)
-
-#### 3X — Data & Storage
-- [31 — Domain Data Model](sections/3X_Data_Storage/31_Domain_Data_Model.md)
-- [32 — Persistence & Formats](sections/3X_Data_Storage/32_Persistence_Formats.md)
-- [33 — Offline-first & Sync](sections/3X_Data_Storage/33_Offline_First_Sync.md)
-- [34 — Backup, Retention & Archival](sections/3X_Data_Storage/34_Backup_Retention_Archival.md)
-
-#### 4X — Interprocess & Communications
-- [41 — Service APIs & Contracts](sections/4X_Interprocess_Communications/41_Service_APIs_Contracts.md)
-- [42 — Transports](sections/4X_Interprocess_Communications/42_Transports.md)
-- [43 — Channel Security](sections/4X_Interprocess_Communications/43_Channel_Security.md)
-
-#### 5X — Hardware I/O & Device Layer
-- [51 — Sensor & Actuator Abstractions](sections/5X_Hardware_IO_Device_Layer/51_Sensor_Actuator_Abstractions.md)
-- [52 — AgIO Service](sections/5X_Hardware_IO_Device_Layer/52_AgIO_Service.md)
-- [53 — AOG-Link Compatibility](sections/5X_Hardware_IO_Device_Layer/53_AOG_Link_Compatibility.md)
-- [54 — CM5 Integrated Controller](sections/5X_Hardware_IO_Device_Layer/54_CM5_Integrated_Controller.md)
-- [55 — Firmware Interfaces & Updates](sections/5X_Hardware_IO_Device_Layer/55_Firmware_Interfaces_Updates.md)
-
-#### 6X — Core Domain Services
-- [61 — Kinematics & Pose Fusion](sections/6X_Core_Domain_Services/61_Kinematics_Pose_Fusion.md)
-- [62 — Job Lifecycle](sections/6X_Core_Domain_Services/62_Job_Lifecycle.md)
-- [63 — Layers Registry & Journal Contracts](sections/6X_Core_Domain_Services/63_Layers_Registry_Journal.md)
-- [64 — Telemetry & Health](sections/6X_Core_Domain_Services/64_Telemetry_Health.md)
-
-#### 7X — Mapping & Geospatial
-- [71 — Mapping Kernel & Registry Contracts](sections/7X_Mapping_Geospatial/71_Mapping_Kernel_Registry_Contracts.md)
-- [72 — Mapping Layers Plugin](sections/7X_Mapping_Geospatial/72_Mapping_Layers_Plugin.md)
-- [73 — Variable Mapping](sections/7X_Mapping_Geospatial/73_Variable_Mapping.md)
-- [74 — Monitoring Systems](sections/7X_Mapping_Geospatial/74_Monitoring_Systems.md)
-- [75 — Tiling & Rendering Services](sections/7X_Mapping_Geospatial/75_Tiling_Rendering_Services.md)
-- [76 — Geospatial Extensibility](sections/7X_Mapping_Geospatial/76_Geospatial_Extensibility.md)
-- [77 — Variable Rate Control](sections/7X_Mapping_Geospatial/77_Variable_Rate_Control.md)
-
-#### 8X — Guidance
-- [81 — Guidance Orchestrator](sections/8X_Guidance/81_Guidance_Orchestrator.md)
-- [82 — Planning](sections/8X_Guidance/82_Planning.md)
-- [83 — Autosteer Target Models](sections/8X_Guidance/83_Autosteer_Target_Models.md)
-
-#### 9X — Frontends & Ops
-- [91 — UI Shell & Layout](sections/9X_Frontends_Ops/91_UI_Shell_Layout.md)
-- [92 — Gauges & Machine Panels](sections/9X_Frontends_Ops/92_Gauges_Machine_Panels.md)
-- [93 — Command Line Interface](sections/9X_Frontends_Ops/93_Command_Line_Interface.md)
-- [94 — Extensibility, Packaging & Updates](sections/9X_Frontends_Ops/94_Extensibility_Packaging_Updates.md)
-- [95 — Security & Permissions](sections/9X_Frontends_Ops/95_Security_Permissions.md)
-- [96 — Quality Engineering & Release](sections/9X_Frontends_Ops/96_Quality_Engineering_Release.md)
-- [97 — Simulation & Replay](sections/9X_Frontends_Ops/97_Simulation_Replay.md)
+### Active ADRs
+- [11-ADR-001 — Target OS Prioritization](sections/1X_Platform_Foundations/11-ADR-001 - Target OS Prioritization.md)
+- [12-ADR-001 — Adopt .NET 10 Runtime](sections/1X_Platform_Foundations/12-ADR-001 - Adopt .NET 10 Runtime.md)
+- [13-ADR-001 — Adopt Avalonia 12 for the Nexus Desktop UI Shell](sections/1X_Platform_Foundations/13-ADR-001 - Adopt Avalonia 12 for the Nexus Desktop UI Shell.md)
+- [14-ADR-001 — Standardize Build Environment & Tooling](sections/1X_Platform_Foundations/14-ADR-001 - Standardize Build Environment & Tooling.md)
 
 ### Reference library
 - [Reference library overview](references/README.md)
