@@ -24,7 +24,7 @@ Section 13 requires a cross-platform desktop shell and metadata-driven dashboard
 
 ## Decision
 
-Adopt Avalonia 12 as the primary desktop shell, pairing it with the charter-mandated latest stable .NET version (per §5.1). WinForms stays available until parity is reached, but all new work targets Avalonia with shared view models and metadata-driven dashboards.
+Adopt Avalonia 12 as the primary desktop shell, pairing it with the charter-mandated latest stable .NET version (per §5.1). 
 
 ## Consequences
 

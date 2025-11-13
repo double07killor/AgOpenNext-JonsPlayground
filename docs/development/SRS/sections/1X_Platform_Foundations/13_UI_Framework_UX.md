@@ -27,17 +27,17 @@ notes: UI/UX modernization goals; governance metadata applied.
 
 ## 13.1 Purpose & Scope
 
-Define the presentation stack and operator experience, balancing the legacy WinForms UI with Avalonia modernization and remote/companion frontends.
+Define the presentation stack and operator experience that delivers a modern, cross-platform desktop UI plus companion/remote workflows for operators and QA teams.
 
 ## 13.2 Context
 
-- The charter mandates ≥30 FPS on reference hardware and complete WinForms parity before retiring it (see §3, G3).  
+- The charter mandates ≥30 FPS on reference hardware and a full-featured modernization that keeps parity with critical workflows (see §3, G3).  
 
 ## 13.3 Legacy Comparison
 
 | Area / Theme | Legacy Behavior | Limitation | Opportunity | Reference |
 |--------------|-----------------|------------|--------------|-----------|
-| UI Stack | WinForms desktop only. | Windows-only. | Avalonia cross-platform shell. | UI modernization plan |
+| UI Stack | WinForms desktop only. | Windows-only. | Modern cross-platform shell with metadata-driven controls. | UI modernization plan |
 | Dashboards | Hard-coded panels. | Slow to adapt. | Metadata widgets. | Dashboard backlog |
 | Remote Clients | Ad-hoc transports. | Fragmented UX. | UI Bridge + remote run modes. | gRPC spec |
 
@@ -53,16 +53,15 @@ Define the presentation stack and operator experience, balancing the legacy WinF
 
 | ID | Priority | Summary | Verification |
 |----|----------|---------|--------------|
-| R-UI-001 | MUST | Keep WinForms shipping until Avalonia covers production features. | WinForms regression suite passes on Windows. |
-| R-UI-002 | SHOULD | Deliver Avalonia 12 shell that renders the same view models on Windows and Linux. | Avalonia parity checklist passes. |
-| R-UI-003 | SHOULD | Implement metadata-driven dashboards for new layers. | Metadata widget demos connect to live data. |
-| R-UI-004 | SHOULD | Enable remote frontends via the UI Bridge transport. | Remote smoke tests over gRPC/WebSocket succeed. |
-| R-UI-005 | SHOULD | Document accessibility/multi-monitor behavior. | Accessibility checklist referenced by training.
+| R-UI-001 | MUST | Ship a modern desktop UI that meets the charter’s performance target (≥30 FPS on reference hardware) and supports core operator workflows. | Performance tests on reference hardware and critical feature checklist pass. |
+| R-UI-002 | SHOULD | Surface metadata-driven dashboards and widgets so new layers appear without code changes. | Metadata widget demos connect to live data flows. |
+| R-UI-003 | MUST | Support remote/companion frontends via the UI Bridge transport so headless cores remain operable. | Remote smoke tests over gRPC/WebSocket succeed. |
+| R-UI-004 | SHOULD | Address accessibility, multi-monitor, and touch ergonomics within the UI guidelines. | Accessibility/layout checklist referenced by training materials. |
 
 ## 13.6 Acceptance & Verification
 
-- Avalonia parity checklist covers run modes and dashboards.
-- Remote frontends demonstrate gRPC/WebSocket connectivity.
+- Desktop/performance benchmarks demonstrate ≥30 FPS and coverage of critical operator workflows.
+- Remote frontends validate connectivity via the UI Bridge transport.
 - Accessibility and layout documentation stay current.
 
 ## Appendix: Change Log

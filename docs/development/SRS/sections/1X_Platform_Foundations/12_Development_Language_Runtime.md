@@ -31,21 +31,24 @@ Define the runtime, language, and dependency policies that keep every managed pr
 
 ## 12.2 Context
 
-- All managed assemblies target the same .NET SDK via `global.json` for reproducibility, honoring the charter’s version policy (latest stable combination of .NET and Avalonia verified by CI; upgrade only after compatibility is confirmed, §5.1).
+- All managed assemblies target the same managed runtime via `global.json` for reproducibility, honoring the charter version policy that keeps the latest stable .NET/Avalonia combination aligned after CI validation.  
+- Shared contract packages and view models keep Core, UI, and AgIO compatible.  
+- Build automation (Section 14) enforces tooling consistency reviewed here.  
+- Native rewrites outside the managed ecosystem are out of scope until explicitly revisited.
 
 ## 12.3 Legacy Comparison
 
 | Area / Theme | Legacy Behavior | Limitation | Opportunity | Reference |
 |--------------|-----------------|------------|--------------|-----------|
-| Runtime | Mixed .NET Framework and .NET 6. | Divergent tooling, Linux gaps. | Single .NET 10 baseline. | Runtime audit |
-| Dependency | Ad-hoc packages via each project. | Version drift. | Curated allowlist. | Dependency board |
+| Runtime | Mixed .NET Framework and .NET 6. | Divergent tooling, Linux gaps. | Single managed runtime strategy. | Runtime audit |
+| Dependency | Ad-hoc packages per project. | Version drift. | Curated allowlist with CI checks. | Dependency board |
 | Contracts | Manual duplication. | Plugin breakage. | Shared contract packages. | Plugin registry |
 
 ## 12.4 Definitions
 
 | Term | Definition |
 |------|-------------|
-| Managed Runtime | The .NET 10 runtime all managed code targets. |
+| Managed Runtime | The common runtime all managed code targets. |
 | Contract Package | Versioned interface library consumed by Core, UI, plugins. |
 | Allowlist | Approved dependency list reviewed via CI.
 
@@ -53,21 +56,21 @@ Define the runtime, language, and dependency policies that keep every managed pr
 
 | ID | Priority | Summary | Verification |
 |----|----------|---------|--------------|
-| R-STACK-001 | MUST | Target .NET 10 across all managed projects. | CI ensures net10.0/global.json compliance. |
-| R-STACK-002 | MUST | Share contracts/view models so Core, UI, AgIO reuse code. | Contract packages build and publish shared NuGet. |
-| R-STACK-003 | MUST | Pin SDK and dependency versions for deterministic builds. | Hash comparisons match across environments. |
-| R-STACK-004 | SHOULD | Keep OS-specific logic behind dependency-injected interfaces. | Adapter tests cover per-OS swaps. |
-| R-STACK-005 | SHOULD | Publish a reviewed dependency allowlist each release. | Allowlist doc + reviewer log.
+| R-STACK-001 | MUST | Keep every managed project on the same runtime so Windows and Linux behavior remains identical. | CI enforces a single framework version via `global.json`. |
+| R-STACK-002 | MUST | Share contracts/view models so Core, UI, and AgIO reuse the same code. | Contract packages build and publish shared NuGet artifacts. |
+| R-STACK-003 | MUST | Pin SDKs and dependency versions for deterministic builds. | Hash comparisons match across local, CI, and release artifacts. |
+| R-STACK-004 | SHOULD | Keep OS-specific logic behind dependency-injected interfaces. | Adapter tests cover each configurable implementation. |
+| R-STACK-005 | SHOULD | Publish a reviewed dependency allowlist each release. | Allowlist documentation cites approvals and review history.
 
 ## 12.6 Acceptance & Verification
 
-- CI rejects stray TargetFramework values outside net10.0.
-- Contract package builds produce stable artifacts consumed downstream.
+- CI rejects projects that deviate from the defined framework version.  
+- Contract package builds produce stable artifacts consumed downstream.  
 - Dependency allowlist entries appear in release notes with review history.
 
 ## Appendix: Change Log
 
 | Version | Date | Changes | Owner/Author | PR / Issue |
 |---------|------|---------|--------------|------------|
-| 0.1.0 | 2025-11-12 | Template-based rewrite. | Jon Fortney |  |
+| 0.1.0 | 2025-11-12 | Template-aligned rewrite. | Jon Fortney |  |
 | 0.1.0 | 2025-10-21 | Initial governance draft. | Nexus Team (Fortney) |  |
