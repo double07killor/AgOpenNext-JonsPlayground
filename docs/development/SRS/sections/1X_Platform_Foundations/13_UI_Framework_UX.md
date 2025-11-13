@@ -1,5 +1,5 @@
 ---
-title: 13 — UI Framework & UX
+title: 13 - UI Framework & UX
 version: 0.1.0
 status: Draft
 authors:
@@ -15,254 +15,59 @@ review_cycle: Quarterly
 notes: UI/UX modernization goals; governance metadata applied.
 ---
 
-# 13 — UI Framework & UX
+# 13 - UI Framework & UX
 *(Status: Drafting)*
 
 **Section ID:** 13 | **Version:** 0.1.0  
-**Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 9X — Frontends & Ops  
-**Related Decisions:** `13-ADR-001 — Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell`, `12-ADR-001 — Adopt .NET 10 Runtime`
-**Upstream Dependencies:** 2X — System Architecture, 4X — Interprocess Communications  
-**Downstream Impacts:** 9X — Frontends & Ops, Training & User Experience
+**Editors:** AgOpenNext Team (Codex)  
+**Last Updated:** 2025-11-12  
+**Related Sections:** 11 - Operating System Support, 12 - Language & Runtime, 9X - Frontends & Ops  
+**Upstream Dependencies:** 1X - Platform Foundations, 4X - Interprocess Communications  
+**Downstream Impacts:** 9X - Frontends & Ops, Training & UX Guidelines
 
 ## 13.1 Purpose & Scope
 
-Define the presentation technologies, layout systems, and UX policies for AgOpenNext desktop and companion clients.
-Balance legacy WinForms expectations with modernization via Avalonia and remote client strategies; WPF maintenance is explicitly out of scope.
-
----
+Define the presentation stack and operator experience, balancing the legacy WinForms UI with Avalonia modernization and remote/companion frontends.
 
 ## 13.2 Context
 
-- WinForms remains the production UI for operators via AgOpenGPS v6; WPF experiments are retired.
-- Remote clients and metadata-driven dashboards require cross-platform components.
-- Avalonia 12 pilots aim to share view models across Windows/Linux and mobile shells.
-- UI stack must coexist with headless Core deployments connected through gRPC or WebSockets.
-
-### Journeys to keep in mind
-
-- **Operator upgrading in the cab:** Runs daily work on AgOpenGPS v6 WinForms and evaluates AgOpenNext Avalonia builds on spare hardware without risking production rigs.
-- **QA verifying run modes:** Uses the Avalonia shell to swap between LocalInProc and CompanionRemote, ensuring the same dashboard cards appear without manual window reshuffling.
-- **Dealer supporting a headless rig:** Runs Avalonia on a Windows laptop while connected to a Linux Core over gRPC, confirming metadata-driven dashboards populate automatically.
-
-> **Visual reference:** The annotated layouts in `docs/UI/floating-block-overview.md` and the run-mode walkthrough in `docs/UI/avalonia-run-modes.md` show how windows, panels, and dashboards change between WinForms and Avalonia.
-
----
+- The charter mandates ≥30 FPS on reference hardware and complete WinForms parity before retiring it (see §3, G3).  
 
 ## 13.3 Legacy Comparison
 
-| Area / Theme | Legacy Behavior | Identified Limitation | Modernization Opportunity | Reference / Source |
-|---------------|-----------------|------------------------|---------------------------|--------------------|
-| WinForms UI | Primary operator interface with OpenGL panels. | Windows-only, limited touch support. | Maintain compatibility while introducing cross-platform Avalonia shell. | Production UI |
-| Retired WPF Experiments | Prototype panels with limited adoption. | Unmaintained; no release path. | Document lessons learned and move on. | WPF branch archive |
-| Configuration UX | Manual wiring of dashboards and inspectors. | Slow to surface new layers/metrics. | Adopt metadata-driven dashboards (O-UI-5). | UX backlog |
-
----
+| Area / Theme | Legacy Behavior | Limitation | Opportunity | Reference |
+|--------------|-----------------|------------|--------------|-----------|
+| UI Stack | WinForms desktop only. | Windows-only. | Avalonia cross-platform shell. | UI modernization plan |
+| Dashboards | Hard-coded panels. | Slow to adapt. | Metadata widgets. | Dashboard backlog |
+| Remote Clients | Ad-hoc transports. | Fragmented UX. | UI Bridge + remote run modes. | gRPC spec |
 
 ## 13.4 Definitions
 
 | Term | Definition |
 |------|-------------|
-| Companion Mode | Remote UI connecting to headless Core via network transport. |
-| Metadata-driven UI | Dynamic dashboards derived from schema/metadata rather than hard-coded panels. |
-| Run Mode | Operating mode toggles: CompanionRemote, LocalInProc, LocalOutOfProc. |
-
----
-
-> **Requirement Grammar (RFC-2119):**
-> - **MUST / MUST NOT** specify mandatory UI obligations.
-> - **SHOULD / SHOULD NOT** highlight strong recommendations.
-> - **MAY** identifies optional capabilities or roadmap items.
+| Run Mode | Operating mode such as LocalInProc or CompanionRemote. |
+| Metadata Widget | Dashboard component derived from schema. |
+| UI Bridge | Interface exposing Core data/commands to frontends.
 
 ## 13.5 Requirements
 
-| ID | Priority | Category | Summary | Source / C-IDs | Key Metrics / Verification |
-|----|-----------|-----------|----------|-----------------|-----------------------------|
-| R-UI-001 | MUST | Legacy Support | Keep WinForms desktop UI shipping with mapping, PGN tools, OpenGL panels. | Legacy operators | Windows regression suite |
-| R-UI-002 | SHOULD | AgIO Config | Maintain AgIO Windows Forms dialogs for device setup. | AgIO maintainers | UI automation on dialogs |
-| R-UI-003 | SHOULD | Multi-monitor | Preserve window placement helpers for multi-monitor cabs. | Operator feedback | UI layout tests |
-| R-UI-004 | SHOULD | Metadata Widgets | Provide metadata-driven widgets to surface new layers without code rewrites. | Metadata dashboards backlog | Prototype dashboards hitting feature checklist |
-| R-UI-005 | SHOULD | Remote Clients | Enable frontends that attach to headless Core via gRPC/Web transport. | Remote client plan | End-to-end remote client demo |
-| R-UI-006 | COULD | Cross-platform Stacks | Evaluate kiosk-friendly cross-platform stacks (Qt, Avalonia, Web). | Linux Core roadmap | Comparative spike reports |
-| R-UI-007 | SHOULD | Accessibility | Support high-DPI scaling, contrast presets, localization hooks. | Accessibility WG | Accessibility test matrix |
-| R-UI-008 | MUST | Shared Mobile Shell | Keep Avalonia project free of platform-specific forks for mobile builds. | 13-ADR-001 Avalonia 12 UI | Mobile CI builds |
-| R-UI-009 | SHOULD | Run-mode Toggles | Provide configuration surface for run-mode switching. | 13-ADR-001 Avalonia 12 UI | QA scenarios covering run modes |
+| ID | Priority | Summary | Verification |
+|----|----------|---------|--------------|
+| R-UI-001 | MUST | Keep WinForms shipping until Avalonia covers production features. | WinForms regression suite passes on Windows. |
+| R-UI-002 | SHOULD | Deliver Avalonia 12 shell that renders the same view models on Windows and Linux. | Avalonia parity checklist passes. |
+| R-UI-003 | SHOULD | Implement metadata-driven dashboards for new layers. | Metadata widget demos connect to live data. |
+| R-UI-004 | SHOULD | Enable remote frontends via the UI Bridge transport. | Remote smoke tests over gRPC/WebSocket succeed. |
+| R-UI-005 | SHOULD | Document accessibility/multi-monitor behavior. | Accessibility checklist referenced by training.
 
-> **Why it matters:** These requirements let today’s operators trust the WinForms UI, show what Avalonia adds (touch layouts, metadata dashboards), and guarantee remote clients see the same widgets without custom coding.
+## 13.6 Acceptance & Verification
 
-### 13.5.1 Requirement Sources & Rationale
-
-| Req ID | Source | Rationale |
-|--------|--------|-----------|
-| R-UI-000 | Production deployments | Preserve current operator workflows during transition. |
-| R-UI-004 | Metadata-driven dashboards option (9X) | Accelerate UI iteration without code changes. |
-| R-UI-005 | Linux Core roadmap | Ensure headless deployments still deliver UX. |
-| R-UI-008 | 13-ADR-001 Avalonia 12 UI | Keep shared codebase across desktop/mobile. |
-
----
-
-## 13.6 Acceptance Criteria & Verification
-
-- WinForms (v6) regression tests stay green alongside Avalonia smoke tests covering multi-monitor layouts.
-- Metadata dashboard prototypes demonstrate dynamic widget loading.
-- Remote client demo proves gRPC transport viability for CompanionRemote mode.
-
-### 13.6.1 Requirement-to-Verification Map
-
-| Req ID | Verification Type | Artifact / Location | Pass/Fail Threshold |
-|--------|--------------------|---------------------|---------------------|
-| R-UI-000 | Regression suite | `tests/UI/winforms-smoke/` | All scenarios pass |
-| R-UI-004 | Prototype demo | `demos/UI/metadata-dashboard/` | Checklist complete |
-| R-UI-005 | Integration test | `tests/UI/remote-client/` | Connects to headless Core without errors |
-| R-UI-008 | CI build | `pipelines/ui-avalonia.yml` | Android/iOS builds succeed |
-
----
-
-## 13.7 Constraints
-
-- Maintain compatibility with existing WinForms OpenGL renderer until Avalonia reaches parity.
-- Ensure UI toolkits comply with cross-platform GPU requirements (OpenGL 3.3+).
-- Keep localization and accessibility requirements consistent across shells.
-- Publish theming and accessibility guidelines so every shell implements the same operator-facing standards.
-- Require metadata schema updates to include presentation hints that allow dashboards to render without custom code.
-
-### 13.7.1 Non-Functional Requirement Classes
-
-- **Performance:** Input latency, render FPS, UI startup time.
-- **Usability:** Touch ergonomics, multi-monitor behavior, accessibility.
-- **Portability:** Windows x64, Linux x86_64/ARM64, Android/iOS companion builds.
-- **Maintainability:** Shared view models, limited platform-specific forks.
-
----
-
-## 13.8 Risks & Open Issues
-
-| ID | Description | Impact | Mitigation / Status | Owner |
-|----|-------------|--------|---------------------|-------|
-| RISK-13-1 | Avalonia theming/performance gaps. | Medium | Run pilots on Windows + Linux; keep WinForms fallback. | @ui |
-| RISK-13-2 | Metadata-driven dashboards overwhelm operators. | Low | Provide presets + training materials. | @ux |
-| ISSUE-13-2 | Validate run-mode toggles UX for QA. | Medium | Prototype configuration workflow. | @qa |
-
----
-
-## 13.9 Design Considerations
-
-| ID | Consideration | Description |
-|----|----------------|-------------|
-| C1 | WinForms continuity | Keep existing UI operational during modernization. |
-| C2 | Cross-platform shell | Avalonia path to share UI across OS/mobile. |
-| C3 | Metadata dashboards | Dynamic layer discovery and inspector UX. |
-| C4 | Remote/companion UX | Support remote clients with acceptable latency. |
-| C5 | Accessibility baseline | High-DPI, color contrast, localization hooks. |
-| C6 | Run-mode management | Streamline toggles between CompanionRemote/Local modes. |
-
-### 13.9.1 Assumptions & Preconditions
-
-- [A1] Rendering performance goals from Section 11 are achieved on Windows + Linux hardware.
-- [A2] Metadata describing layers is maintained by mapping teams.
-- [A3] Remote transport (gRPC/Web) remains consistent with Section 4X decisions.
-
----
-
-## 13.10 Option Overview
-
-Define viable UI framework and UX strategy options for AgOpenNext, balancing modernization with operator familiarity.
-
-| Option ID | Status | Type / Theme | Description | Reference Document |
-|-----------|--------|--------------|-------------|--------------------|
-| **13-O1** | Proposed | Cross-Platform Desktop | Use **Avalonia 12** as the modern desktop shell for Windows and Linux, sharing view models, layouts, and theming across platforms. | `13-ADR-001 - Adopt Avalonia 12 for the AgOpenNext Desktop UI Shell.md` |
-| **13-O2** | Retained | Legacy Compatibility | Maintain **WinForms (v6)** as the stable, production-proven UI during the transition to Avalonia. | `Legacy SourceCode/V6/` |
-| **13-O3** | Exploratory | Web / Companion UX | Evaluate **web-based dashboards** (e.g., Blazor Hybrid or WebAssembly) to connect to headless Core instances via gRPC/WebSocket. | `docs/UI/web-ui-concepts.md` *(placeholder)* |
-
-> **Informative:**  
-> These options capture the present and near-term UI stack choices.  
-> Only Option 13-O1 (Avalonia) is expected to become normative through ADR 13-001;  
-> WinForms remains supported for legacy continuity, and Web UX exploration is future scope.
-
----
-
-## 13.11 Comparison Matrix
-
-| Attribute / Criteria | Legacy WinForms (v6) | Avalonia-based Shell (11-O1) |
-|----------------------|---------------------|-----------------------------|
-| Implementation Effort | Low (status quo) | Medium (new toolkit + theming) |
-| Maintainability | Medium | High (shared code) |
-| Touch/UX | Low | High |
-| Portability | Low | High |
-| Risk Level | Low | Medium |
-
----
-
-## 13.12 Decision Matrix
-
-*(Reserved — will be completed upon adoption of `13-ADR-001`.)*
-
-### 13.12.1 Evaluation Criteria
-
-| Criterion | Rationale for Inclusion | Weight |
-|-----------|-------------------------|--------|
-| **Cross-Platform Reach** | Must support Windows + Linux per §11 baseline. | 0.25 |
-| **Maintainability** | Unified code and theming reduce divergence. | 0.20 |
-| **Operator Familiarity** | Smooth transition from existing WinForms UI. | 0.15 |
-| **Performance / Responsiveness** | Meet target FPS and latency benchmarks (§11). | 0.15 |
-| **Extensibility / Web Readiness** | Foundation for future web or hybrid companion UIs. | 0.15 |
-| **Accessibility / Localization** | Compliance with WCAG 2.1 and translation hooks. | 0.10 |
-| **Total** |  | **1.00** |
-
-> **Note:**  
-> Current pilots favor **13-O1 (Avalonia)** for maintainability and roadmap alignment,  
-> but §13 remains decision-agnostic until ADR 13-001 is formally approved.
-
----
-
-## 13.13 Evaluation & Verification
-
-- Conduct usability studies comparing WinForms vs. Avalonia shells.
-- Validate metadata-driven UI flows in staging environment with operator feedback.
-- Record latency metrics for remote clients (target ≤ 120 ms input round-trip).
-
----
-
-## 13.14 Implementation Policy
-
-*(Reserved — implementation decisions are captured in ADRs such as `13-ADR-001`.)*
-
----
-
-## 13.15 Community Sentiment
-
-- Operators request gradual transition; WinForms must remain stable via the existing v6 distribution while AgOpenNext matures separately.
-- Contributors endorse Avalonia due to shared C# skill set and mobile ambitions.
-- UX working group emphasizes metadata-driven approach to reduce manual dashboard wiring.
-
-## 13.16 Traceability
-
-| Requirement ID | Related Option(s) | ADR(s) | Verification Artifact | Implementation Reference |
-|----------------|-------------------|--------|-----------------------|--------------------------|
-| R-UI-000 | — | — | `tes../UI/winforms-smoke/` | `Legacy SourceCode -V6/SourceCode/GPS/` |
-| R-UI-004 | 9X Consideration C3 | — | `dem../UI/metadata-dashboard/` | `docs/sections/9X_Frontends_Ops/91_UI_Shell_Layout.md#919-design-considerations` |
-| R-UI-005 | — | 11-ADR-001 | `tes../UI/remote-client/` | `deployment/companion/` |
-| R-UI-008 | 11-O1 | 11-ADR-001 | `pipelines/ui-avalonia.yml` | `AgOpenNext SourceCode/src/Aog.UI.Avalonia/` |
-
----
-
-## 13.17 Conformance
-
-An implementation conforms when legacy UI obligations are met, modernization requirements (metadata dashboards, remote clients, accessibility) show active verification, and shared runtime policies remain aligned with Section 11/12 decisions.
-
----
-
-## 13.18 Standards Context
-
-Aligns with **ISO/IEC/IEEE 29148:2018** for UI requirement traceability and W3C accessibility guidelines (WCAG 2.1 AA) for operator-facing interfaces.
-
-
----
+- Avalonia parity checklist covers run modes and dashboards.
+- Remote frontends demonstrate gRPC/WebSocket connectivity.
+- Accessibility and layout documentation stay current.
 
 ## Appendix: Change Log
 
-| Version | Date | Changes | Author | PR / Issue |
-|---------|------|---------|--------|------------|
-| 0.1.0 | 2025-11-09 | Applied governance metadata/change-log template and annotated the section accordingly. | Jon Fortney |  |
-| 0.1.0 | 2025-10-20 | Converted UI framework section to standardized template. | Nexus Team (Codex) |  |
-| 0.1.0 | 2025-10-25 | Added Avalonia transition path, run-mode verification, and accessibility baseline. | Nexus Team (Codex) |  |
-
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-12 | Template-compliant rewrite. | AgOpenNext Team (Codex) |  |
+| 0.1.0 | 2025-10-20 | Original UI modernization doc. | AgOpenNext Team (Codex) |  |

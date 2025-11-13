@@ -1,140 +1,1154 @@
-# AgIO ↔ Hardware PGN Baseline
-
-This reference captures the current AgOpenGPS/AgIO parameter group number (PGN) framing as implemented today. The SRS must preserve
-backward compatibility with these payloads (or provide shims) while introducing new transports or schemas.
-
-## Message framing
+# AOG message format
 
 An AOG message of length `n` has the following general format:
 
-| Byte 0 | Byte 1 | Byte 2 | Byte 3 | Byte 4 | ... | Byte n-1 |
-| ------ | ------ | ------ | ------ | ------ | --- | -------- |
-| `0x80` | `0x81` | `Src`  | `PGN`  | `Len`  | Data | `CRC` |
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>Byte 0</th>
+            <th nowrap align=center>Byte 1</th>
+            <th nowrap align=center>Byte 2</th>
+            <th nowrap align=center>Byte 3</th>
+            <th nowrap align=center>Byte 4</th>
+            <th nowrap align=center>...</th>
+            <th nowrap align=center>Byte n-1</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>0x80</td>
+            <td align=center>0x81</td>
+            <td align=center>Src</td>
+            <td align=center>PGN</td>
+            <td align=center>Len</td>
+            <td align=center>Data</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
 
-* **Src** – Sender identifier.
-* **PGN** – Parameter Group Number.
-* **Len** – Length of the Data payload in bytes.
-* **Data** – Payload associated with the PGN.
-* **CRC** – Checksum of bytes 2 through `n-2`.
+- The first two bytes consist of the preamble 0x80 & 0x81 to identify AOG messages.
+- **Src**: The source (sender) of the message.
+- **PGN**: The message identifier (Parameter Group Number) listed below.
+- **Len**: The length of the message (only counting **Data** in bytes).
+- **Data**: The actual data corresponding to the respective **PGN**.
+- **CRC**: Checksum of the message (sum of byte 2 - n-2).
 
-Serial transports wrap the frame above using COBS encoding with a trailing `0x00` delimiter
-and reuse the same one-byte checksum. Hardware commonly operates at 115200 bps, but Nexus
-adds a 921600 bps option to match modern legacy-compatible modules. `LegacySerialFrameCodec`
-provides a reference implementation of the encoder/decoder pair.
+# PGN list
 
-## PGN catalog
+## Steer Module
 
-The tables below mirror today’s UDP/serial catalog grouped by module. Fields marked `***` or `*` represent reserved or currently
-undocumented bytes. All counts are little endian unless noted.
+IP = 192.168.5.126<br>
+Hello = 126<br>
+Port = 5126<br>
+00 00 56 00 00 7E<br>
 
-### Steer module
 
-* IP: `192.168.5.126`
-* Hello: `126`
-* Port: `5126`
-* Hello payload: `00 00 56 00 00 7E`
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+            <th nowrap align=center>Byte 13</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Steer Data</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>FE</td>
+            <td align=center>254</td>
+            <td align=center>8</td>
+            <td align=center colspan=2>Speed</td>
+            <td align=center>Status</td>
+            <td align=center colspan=2>steerAngle</td>
+            <td align=center>xte</td>
+            <td align=center>SC1to8</td>
+            <td align=center>SC9to16</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Steer Settings</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>FC</td>
+            <td align=center>252</td>
+            <td align=center>8</td>
+            <td align=center>gainP</td>
+            <td align=center>highPWM</td>
+            <td align=center>lowPWM</td>
+            <td align=center>minPWM</td>
+            <td align=center>countsPerDeg</td>
+            <td align=center colspan=2>steerOffset</td>
+            <td align=center>ackermanFix</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Steer Config</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>FB</td>
+            <td align=center>251</td>
+            <td align=center>8</td>
+            <td align=center>set0</td>
+            <td align=center>pulseCount</td>
+            <td align=center>minSpeed</td>
+            <td align=center>sett1</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>From AutoSteer</td>
+            <td align=center>7E</td>
+            <td align=center>126</td>
+            <td align=center>FD</td>
+            <td align=center>253</td>
+            <td align=center>8</td>
+            <td align=center colspan=2>ActualSteerAngle * 100</td>
+            <td align=center colspan=2>IMU Heading Hi/Lo</td>
+            <td align=center colspan=2>IMU Roll Hi/Lo</td>
+            <td align=center>Switch</td>
+            <td align=center>PWMDisplay</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>From Autosteer 2</td>
+            <td align=center>7E</td>
+            <td align=center>127</td>
+            <td align=center>FA</td>
+            <td align=center>250</td>
+            <td align=center>8</td>
+            <td align=center>Sensor Value</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>***</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
 
-| PGN Name        | Src | Src (dec) | PGN | PGN (dec) | Len | Byte 5          | Byte 6          | Byte 7         | Byte 8              | Byte 9       | Byte 10      | Byte 11 | Byte 12 | Byte 13 | Notes |
-|-----------------|-----|-----------|-----|-----------|-----|-----------------|-----------------|----------------|---------------------|--------------|--------------|---------|---------|---------|-------|
-| Steer Data      | 7F  | 127       | FE  | 254       | 8   | Speed (lo)      | Speed (hi)      | Status         | Steer angle (lo)    | Steer angle (hi) | XTE | SC1–8  | SC9–16 | CRC | |
-| Steer Settings  | 7F  | 127       | FC  | 252       | 8   | gainP           | highPWM         | lowPWM         | minPWM              | countsPerDeg | Steer offset (lo) | Steer offset (hi) | ackermanFix | CRC |
-| Steer Config    | 7F  | 127       | FB  | 251       | 8   | set0            | pulseCount      | minSpeed       | sett1               | ***          | ***          | ***     | ***     | CRC     | |
-| From AutoSteer  | 7E  | 126       | FD  | 253       | 8   | Actual steer angle (lo) | Actual steer angle (hi) | IMU heading (lo) | IMU heading (hi) | IMU roll (lo) | IMU roll (hi) | Switch | PWMDisplay | CRC | |
-| From AutoSteer2 | 7E  | 127       | FA  | 250       | 8   | Sensor value    | ***             | ***            | ***                 | ***          | ***          | ***     | ***     | CRC     | |
+<br>
+<br>
 
-### Machine module
+## Machine Module
 
-* IP: `192.168.5.123`
-* Hello: `123`
-* Port: `5123`
-* Hello payload: `00 00 56 00 00 7B`
+IP = 192.168.5.123<br>
+Hello = 123<br>
+Port = 5123<br>
+00 00 56 00 00 7B<br>
 
-| PGN Name        | Src | Src (dec) | PGN | PGN (dec) | Len | Byte 5 | Byte 6 | Byte 7 | Byte 8 | Byte 9 | Byte 10 | Byte 11 | Byte 12 | Byte 13 | Byte 14 | Byte 15 | Byte 16 | Byte 17 | Byte 18 | Byte 19 | Byte 20 | Byte 21 | Byte 22 | Byte 23 | Byte 24 | Byte 25 | Byte 26 | Byte 27 | Byte 28 | Byte 29 | Byte 30 | Byte 31 | Byte 32 | Byte 33 | Byte 34 | Byte 35 | Byte 36 | Byte 37 | Byte 38 |
-|-----------------|-----|-----------|-----|-----------|-----|--------|--------|--------|--------|--------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|---------|
-| Machine Data    | 7F  | 127       | EF  | 239       | 8   | uturn  | speed×10 | hydLift | Tram   | Geo Stop | *** | SC1–8 | SC9–16 | CRC | | | | | | | | | | | | | | | | | | | | | | |
-| Machine Config  | 7F  | 127       | EE  | 238       | 8   | raiseTime | lowerTime | hydEnable | set0 | User1 | User2 | User3 | User4 | CRC | | | | | | | | | | | | | | | | | | | | | | |
-| Pin Config      | 7F  | 127       | EC  | 236       | 24  | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | CRC |
-| SectionDimensions | 7E | 126       | EB  | 235       | 33  | 1 | 1Hi | 2 | 2Hi | 3 | 3Hi | 4 | 4Hi | 5 | 5Hi | 6 | 6Hi | 7 | 7Hi | 8 | 8Hi | 9 | 9Hi | 10 | 10Hi | 11 | 11Hi | 12 | 12Hi | 13 | 13Hi | 14 | 14Hi | 15 | 15Hi | 16 | 16Hi | NumSec | CRC |
-| From Machine    | 7B  | 123       | ED  | 237       | 8   | 1 | 2 | 3 | 4 | * | ? | ? | ? | CRC | | | | | | | | | | | | | | | | | | | | | | |
-| 64 sections     | 7F  | 127       | E5  | 229       | 10  | 1–8 | 9–16 | 17–24 | 25–32 | 33–40 | 41–48 | 49–56 | 57–64 | Lspeed | Rspeed | CRC | | | | | | | |
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+            <th nowrap align=center>Byte 13</th>
+            <th nowrap align=center>Byte 14</th>
+            <th nowrap align=center>Byte 15</th>
+            <th nowrap align=center>Byte 16</th>
+            <th nowrap align=center>Byte 17</th>
+            <th nowrap align=center>Byte 18</th>
+            <th nowrap align=center>Byte 19</th>
+            <th nowrap align=center>Byte 20</th>
+            <th nowrap align=center>Byte 21</th>
+            <th nowrap align=center>Byte 22</th>
+            <th nowrap align=center>Byte 23</th>
+            <th nowrap align=center>Byte 24</th>
+            <th nowrap align=center>Byte 25</th>
+            <th nowrap align=center>Byte 26</th>
+            <th nowrap align=center>Byte 27</th>
+            <th nowrap align=center>Byte 28</th>
+            <th nowrap align=center>Byte 29</th>
+            <th nowrap align=center>Byte 30</th>
+            <th nowrap align=center>Byte 31</th>
+            <th nowrap align=center>Byte 32</th>
+            <th nowrap align=center>Byte 33</th>
+            <th nowrap align=center>Byte 34</th>
+            <th nowrap align=center>Byte 35</th>
+            <th nowrap align=center>Byte 36</th>
+            <th nowrap align=center>Byte 37</th>
+            <th nowrap align=center>Byte 38</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Machine Data</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>EF</td>
+            <td align=center>239</td>
+            <td align=center>8</td>
+            <td align=center>uturn</td>
+            <td align=center>speed * 10</td>
+            <td align=center>hydLift</td>
+            <td align=center>Tram</td>
+            <td align=center>Geo Stop</td>
+            <td align=center>***</td>
+            <td align=center>SC1to8</td>
+            <td align=center>SC9to16</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Machine Config</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>EE</td>
+            <td align=center>238</td>
+            <td align=center>8</td>
+            <td align=center>raiseTime</td>
+            <td align=center>lowerTime</td>
+            <td align=center>hydEnable</td>
+            <td align=center>set0</td>
+            <td align=center>User1</td>
+            <td align=center>User2</td>
+            <td align=center>User3</td>
+            <td align=center>User4</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Pin Config</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>EC</td>
+            <td align=center>236</td>
+            <td align=center>24</td>
+            <td align=center>1</td>
+            <td align=center>2</td>
+            <td align=center>3</td>
+            <td align=center>4</td>
+            <td align=center>5</td>
+            <td align=center>6</td>
+            <td align=center>7</td>
+            <td align=center>8</td>
+            <td align=center>9</td>
+            <td align=center>10</td>
+            <td align=center>11</td>
+            <td align=center>12</td>
+            <td align=center>13</td>
+            <td align=center>14</td>
+            <td align=center>15</td>
+            <td align=center>16</td>
+            <td align=center>17</td>
+            <td align=center>18</td>
+            <td align=center>19</td>
+            <td align=center>20</td>
+            <td align=center>21</td>
+            <td align=center>22</td>
+            <td align=center>23</td>
+            <td align=center>24</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>SectionDimensions</td>
+            <td align=center>7E</td>
+            <td align=center>126</td>
+            <td align=center>EB</td>
+            <td align=center>235</td>
+            <td align=center>33</td>
+            <td align=center>1</td>
+            <td align=center>1Hi</td>
+            <td align=center>2</td>
+            <td align=center>2Hi</td>
+            <td align=center>3</td>
+            <td align=center>3Hi</td>
+            <td align=center>4</td>
+            <td align=center>4Hi</td>
+            <td align=center>5</td>
+            <td align=center>5Hi</td>
+            <td align=center>6</td>
+            <td align=center>6Hi</td>
+            <td align=center>7</td>
+            <td align=center>7Hi</td>
+            <td align=center>8</td>
+            <td align=center>8Hi</td>
+            <td align=center>9</td>
+            <td align=center>9Hi</td>
+            <td align=center>10</td>
+            <td align=center>10Hi</td>
+            <td align=center>11</td>
+            <td align=center>11Hi</td>
+            <td align=center>12</td>
+            <td align=center>12Hi</td>
+            <td align=center>13</td>
+            <td align=center>13Hi</td>
+            <td align=center>14</td>
+            <td align=center>14Hi</td>
+            <td align=center>15</td>
+            <td align=center>15Hi</td>
+            <td align=center>16</td>
+            <td align=center>16Hi</td>
+            <td align=center>NumSec</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>From Machine</td>
+            <td align=center>7B</td>
+            <td align=center>123</td>
+            <td align=center>ED</td>
+            <td align=center>237</td>
+            <td align=center>8</td>
+            <td align=center>1</td>
+            <td align=center>2</td>
+            <td align=center>3</td>
+            <td align=center>4</td>
+            <td align=center>*</td>
+            <td align=center>?</td>
+            <td align=center>?</td>
+            <td align=center>?</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>64 sections</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>E5</td>
+            <td align=center>229</td>
+            <td align=center>10</td>
+            <td align=center>1to8</td>
+            <td align=center>9to16</td>
+            <td align=center>17to24</td>
+            <td align=center>25to32</td>
+            <td align=center>33to40</td>
+            <td align=center>41to48</td>
+            <td align=center>49to56</td>
+            <td align=center>57to64</td>
+            <td align=center>Lspeed</td>
+            <td align=center>Rspeed</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
 
-### IMU module
 
-* IP: `192.168.5.121`
-* Hello: `121`
-* Port: `5121`
-* Hello payload: `00 00 56 00 00 79`
+<br>
+<br>
 
-| PGN Name     | Src | Src (dec) | PGN | PGN (dec) | Len | Byte 5 | Byte 6 | Byte 7 | Byte 8 | Byte 9 | Byte 10 | Byte 11 | Byte 12 | Byte 13 |
-|--------------|-----|-----------|-----|-----------|-----|--------|--------|--------|--------|--------|---------|---------|---------|---------|
-| From IMU     | 79  | 121       | D3  | 211       | 8   | Heading (lo) | Heading (hi) | Roll (lo) | Roll (hi) | Gyro (lo) | Gyro (hi) | 0 | 0 | CRC |
-| IMU Disconnect | 7C | 124       | D4  | 212       | 2   | 1 | 0 | CRC | | | | | |
+## IMU
 
-### GPS module
+IP = 192.168.5.121<br>
+Hello = 121<br>
+Port = 5121<br>
+00 00 56 00 00 79<br>
 
-* IP: `192.168.5.124`
-* Port: `5124`
-* Hello payload: `00 00 56 00 00 7C`
 
-| PGN Name   | Src | Src (dec) | PGN | PGN (dec) | Len | Payload summary |
-|------------|-----|-----------|-----|-----------|-----|-----------------|
-| Main Antenna | 7C | 124 | D6 | 214 | 51 | Longitude (8 bytes), Latitude (8), Heading true dual (4), Heading true (4), Speed (4), Roll (4), Altitude (4), Satellites tracked (2), Fix quality (1), HDOP×100 (2), Age×100 (2), IMU heading (2), IMU roll (2), IMU pitch (2), IMU yaw rate (2), CRC |
 
-### Tool GPS module
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+            <th nowrap align=center>Byte 13</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>From IMU</td>
+            <td align=center>79</td>
+            <td align=center>121</td>
+            <td align=center>D3</td>
+            <td align=center>211</td>
+            <td align=center>8</td>
+            <td align=center colspan=2>Heading</td>
+            <td align=center colspan=2>Roll</td>
+            <td align=center colspan=2>Gyro</td>
+            <td align=center>0</td>
+            <td align=center>0</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>IMU Disconnect</td>
+            <td align=center>7C</td>
+            <td align=center>124</td>
+            <td align=center>D4</td>
+            <td align=center>212</td>
+            <td align=center>2</td>
+            <td align=center>1</td>
+            <td align=center>0</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
 
-* IP: `192.168.5.125`
-* Port: `10000`
-* Hello payload: `00 00 56 00 00 7D`
 
-| PGN Name   | Src | Src (dec) | PGN | PGN (dec) | Len | Payload summary |
-|------------|-----|-----------|-----|-----------|-----|-----------------|
-| Tool Antenna | 7D | 125 | D7 | 215 | — | Tool antenna payload (implementation specific) |
+<br>
+<br>
 
-### GPS/IMU/WAS combined module
+## GPS
 
-* IP: `192.168.5.122`
-* Port: `5122`
-* Hello payload: `00 00 56 00 00 79`
+IP = 192.168.5.124<br>
+Hello = na<br>
+Port = 5124<br>
+00 00 56 00 00 7C<br>
 
-| PGN Name | Src | Src (dec) | PGN | PGN (dec) | Len | Payload summary |
-|----------|-----|-----------|-----|-----------|-----|-----------------|
-| ToAutosteer | 79 | 122 | F9 | 249 | 8 | Wheel angle sensor low/high. |
 
-### Tool steer module
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+            <th nowrap align=center>Byte 13</th>
+            <th nowrap align=center>Byte 14</th>
+            <th nowrap align=center>Byte 15</th>
+            <th nowrap align=center>Byte 16</th>
+            <th nowrap align=center>Byte 17</th>
+            <th nowrap align=center>Byte 18</th>
+            <th nowrap align=center>Byte 19</th>
+            <th nowrap align=center>Byte 20</th>
+            <th nowrap align=center>Byte 21</th>
+            <th nowrap align=center>Byte 22</th>
+            <th nowrap align=center>Byte 23</th>
+            <th nowrap align=center>Byte 24</th>
+            <th nowrap align=center>Byte 25</th>
+            <th nowrap align=center>Byte 26</th>
+            <th nowrap align=center>Byte 27</th>
+            <th nowrap align=center>Byte 28</th>
+            <th nowrap align=center>Byte 29</th>
+            <th nowrap align=center>Byte 30</th>
+            <th nowrap align=center>Byte 31</th>
+            <th nowrap align=center>Byte 32</th>
+            <th nowrap align=center>Byte 33</th>
+            <th nowrap align=center>Byte 34</th>
+            <th nowrap align=center>Byte 35</th>
+            <th nowrap align=center>Byte 36</th>
+            <th nowrap align=center>Byte 37</th>
+            <th nowrap align=center>Byte 38</th>
+            <th nowrap align=center>Byte 39</th>
+            <th nowrap align=center>Byte 40</th>
+            <th nowrap align=center>Byte 41</th>
+            <th nowrap align=center>Byte 42</th>
+            <th nowrap align=center>Byte 43</th>
+            <th nowrap align=center>Byte 44</th>
+            <th nowrap align=center>Byte 45</th>
+            <th nowrap align=center>Byte 46</th>
+            <th nowrap align=center>Byte 47</th>
+            <th nowrap align=center>Byte 48</th>
+            <th nowrap align=center>Byte 49</th>
+            <th nowrap align=center>Byte 50</th>
+            <th nowrap align=center>Byte 51</th>
+            <th nowrap align=center>Byte 52</th>
+            <th nowrap align=center>Byte 53</th>
+            <th nowrap align=center>Byte 54</th>
+            <th nowrap align=center>Byte 55</th>
+            <th nowrap align=center>Byte 56</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Main Antenna</td>
+            <td align=center>7C</td>
+            <td align=center>124</td>
+            <td align=center>D6</td>
+            <td align=center>214</td>
+            <td align=center>51</td>
+            <td align=center colspan=8>Longitude</td>
+            <td align=center colspan=8>Latitude</td>
+            <td align=center colspan=4>Heading true dual</td>
+            <td align=center colspan=4>Heading true</td>
+            <td align=center colspan=4>Speed</td>
+            <td align=center colspan=4>Roll</td>
+            <td align=center colspan=4>Altitude</td>
+            <td align=center colspan=2>Satellites tracked</td>
+            <td align=center>Fix quality</td>
+            <td align=center colspan=2>HDOP (x100)</td>
+            <td align=center colspan=2>Age (x100)</td>
+            <td align=center colspan=2>IMU heading</td>
+            <td align=center colspan=2>IMU roll</td>
+            <td align=center colspan=2>IMU pitch</td>
+            <td align=center colspan=2>IMU yaw rate</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
 
-* IP: `192.168.5.122`
-* Hello: `122`
-* Port: `5122`
-* Hello payload: `00 00 56 00 00 7A`
 
-| PGN Name        | Src | Src (dec) | PGN | PGN (dec) | Len | Payload summary |
-|-----------------|-----|-----------|-----|-----------|-----|-----------------|
-| Tool Steering   | 7F  | 127       | E9  | 233       | 8   | Vehicle/tool XTE, status, speed×10, CRC. |
-| Tool Settings   | 7F  | 127       | E7  | 231       | 8   | Bitfield for inversion, motor driver selection, CRC. |
-| From Tool Steer | 7A  | 122       | E6  | 230       | 8   | Actual/error steering feedback, PWM, status, CRC. |
-| Switch Control  | 77  | 119       | EA  | 234       | 8   | Main/auto groups, section counts, on/off groups, CRC. |
+<br>
+<br>
 
-### Hello, subnet, and diagnostics messages
+## Tool GPS
 
-| Flow | Src | PGN | Len | Purpose |
-|------|-----|-----|-----|---------|
-| Hello sent to module | 7F | C8 (200) | 3 | Module ID handshake; CRC. |
-| Hello replies | 7E/7B/79/78 | same as Src | 5 | Module metadata. |
-| Subnet change | 7F | C9 (201) | 5 | IP subnet adjustment. |
-| Scan request  | 7F | CA (202) | 3 | Discovery trigger. |
-| Subnet replies | 7E/7B/79/78 | CB (203) | 7 | Module IP + subnet info. |
-| Hardware message | 7F | DD (221) | var | On-screen message with color + duration. |
-| Nudge by machine | 7F | DE (222) | 3 | Section shift commands. |
+IP = 192.168.5.125<br>
+Hello = 125<br>
+Port = 10000<br>
+00 00 56 00 00 7D<br>
 
-## Implications for the SRS
 
-* Legacy PGN consumers expect the framing, IDs, and CRC described above.
-* Any new transport (gRPC, WebSocket, CAN) must either reproduce this catalog or provide a translator.
-* Capability negotiation must not break existing “Hello” and subnet messages without an opt-in upgrade path.
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+            <th nowrap align=center>Byte 13</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Tool Antenna</td>
+            <td align=center>7D</td>
+            <td align=center>125</td>
+            <td align=center>D7</td>
+            <td align=center>215</td>
+            <td align=center></td>
+            <td align=center>Tool Antenna</td>
+        </tr>
+    </tbody>
+</table>
 
-## Related ADRs
 
-- [ADR-006 — AgIO Link MCU Communications](../sections/4X_Interprocess_Communications/42-ADR-006 - MCU communications over AOG-Link (nanopb).md)
-- [ADR-015 — Section Control Grouping Semantics](../sections/6X_Core_Domain_Services/61-ADR-015 - Section control and grouping semantics.md)
-- [ADR-016 — Firmware Transport Variable Rate PGNs](../sections/4X_Interprocess_Communications/42-ADR-016 - Firmware and transport for variable-rate layer PGNs.md)
-- [ADR-047 — Live Telemetry Mesh](../sections/4X_Interprocess_Communications/42-ADR-047 - Live Telemetry Mesh.md)
+<br>
+<br>
+
+## GPS/IMU/WAS
+
+IP = 192.168.5.122<br>
+Hello = ?<br>
+Port = 5122<br>
+00 00 56 00 00 79<br>
+
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+            <th nowrap align=center>Byte 13</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>ToAutosteer</td>
+            <td align=center>79</td>
+            <td align=center>122</td>
+            <td align=center>F9</td>
+            <td align=center>249</td>
+            <td align=center>8</td>
+            <td align=center>WAS_Lo</td>
+            <td align=center>WAS_Hi</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## Tool Steer
+
+IP = 192.168.5.122<br>
+Hello = 122<br>
+Port = 5122<br>
+00 00 56 00 00 7A<br>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+            <th nowrap align=center>Byte 13</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Tool Steering</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>E9</td>
+            <td align=center>233</td>
+            <td align=center>8</td>
+            <td align=center>Low XTE</td>
+            <td align=center>High XTE</td>
+            <td align=center>Status</td>
+            <td align=center>Low Veh XTE</td>
+            <td align=center>High Veh XTE</td>
+            <td align=center>Speed * 10</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Tool Settings</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>E7</td>
+            <td align=center>231</td>
+            <td align=center>8</td>
+            <td align=center>Setting 0</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center>Bit</td>
+            <td align=center>0=Invert WAS</td>
+            <td align=center>1=Invert Rel</td>
+            <td align=center>2=Inv Steer</td>
+            <td align=center>3=Convertor</td>
+            <td align=center>4=Motor Drv</td>
+            <td align=center>5=Danfoss</td>
+        </tr>
+        <tr>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center>0=off</td>
+            <td align=center>0=off</td>
+            <td align=center>0=off</td>
+            <td align=center>0=Differential</td>
+            <td align=center>0=IBT2</td>
+            <td align=center>0=off</td>
+        </tr>
+        <tr>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center>1=inv</td>
+            <td align=center>1=inv</td>
+            <td align=center>1=inv</td>
+            <td align=center>1=Single</td>
+            <td align=center>1=Cytron</td>
+            <td align=center>1=on</td>
+        </tr>
+        <tr>
+            <td align=center>From  Tool Steer</td>
+            <td align=center>7A</td>
+            <td align=center>122</td>
+            <td align=center>E6</td>
+            <td align=center>230</td>
+            <td align=center>8</td>
+            <td align=center>Low Actual</td>
+            <td align=center>High Actual</td>
+            <td align=center>Low Error</td>
+            <td align=center>High Error</td>
+            <td align=center>Tool PWM</td>
+            <td align=center>Status</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Switch Control</td>
+            <td align=center>77</td>
+            <td align=center>119</td>
+            <td align=center>EA</td>
+            <td align=center>234</td>
+            <td align=center>8</td>
+            <td align=center>Main</td>
+            <td align=center>Auto Group 0</td>
+            <td align=center>Auto Group 1</td>
+            <td align=center>#sections</td>
+            <td align=center>On Group 0</td>
+            <td align=center>Off Group 0</td>
+            <td align=center>On Group 1</td>
+            <td align=center>Off Group 1</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## Hello Sent To Module
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Hello</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>C8</td>
+            <td align=center>200</td>
+            <td align=center>3</td>
+            <td align=center>Module ID</td>
+            <td align=center>0</td>
+            <td align=center>0</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## Hello Reply to AgIO
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Steer Reply</td>
+            <td align=center>7E</td>
+            <td align=center>126</td>
+            <td align=center>7E</td>
+            <td align=center>126</td>
+            <td align=center>5</td>
+            <td align=center>AngleLo</td>
+            <td align=center>AngleHi</td>
+            <td align=center>CountsLo</td>
+            <td align=center>CountsHi</td>
+            <td align=center>Switchbyte</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Steer Reply</td>
+            <td align=center>7B</td>
+            <td align=center>123</td>
+            <td align=center>7B</td>
+            <td align=center>123</td>
+            <td align=center>5</td>
+            <td align=center>relayLo</td>
+            <td align=center>relayHi</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>IMU Reply</td>
+            <td align=center>79</td>
+            <td align=center>121</td>
+            <td align=center>79</td>
+            <td align=center>121</td>
+            <td align=center>5</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>GPS Reply</td>
+            <td align=center>78</td>
+            <td align=center>120</td>
+            <td align=center>78</td>
+            <td align=center>120</td>
+            <td align=center>5</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>*</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## From AgIO
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Subnet Change</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>C9</td>
+            <td align=center>201</td>
+            <td align=center>5</td>
+            <td align=center>201</td>
+            <td align=center>201</td>
+            <td align=center>IP_One</td>
+            <td align=center>IP_Two</td>
+            <td align=center>IP_Three</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Scan request</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>CA</td>
+            <td align=center>202</td>
+            <td align=center>3</td>
+            <td align=center>202</td>
+            <td align=center>202</td>
+            <td align=center>5</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## Subnet Reply to AgIO
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+            <th nowrap align=center>Byte 8</th>
+            <th nowrap align=center>Byte 9</th>
+            <th nowrap align=center>Byte 10</th>
+            <th nowrap align=center>Byte 11</th>
+            <th nowrap align=center>Byte 12</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Subnet Steer</td>
+            <td align=center>7E</td>
+            <td align=center>126</td>
+            <td align=center>CB</td>
+            <td align=center>203</td>
+            <td align=center>7</td>
+            <td align=center>IP_One</td>
+            <td align=center>IP_Two</td>
+            <td align=center>IP_Three</td>
+            <td align=center>IP_Four</td>
+            <td align=center>Subnet_One</td>
+            <td align=center>Subnet_Two</td>
+            <td align=center>Subnet_Three</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Subnet Machine</td>
+            <td align=center>7B</td>
+            <td align=center>123</td>
+            <td align=center>CB</td>
+            <td align=center>203</td>
+            <td align=center>7</td>
+            <td align=center>IP_One</td>
+            <td align=center>IP_Two</td>
+            <td align=center>IP_Three</td>
+            <td align=center>IP_Four</td>
+            <td align=center>Subnet_One</td>
+            <td align=center>Subnet_Two</td>
+            <td align=center>Subnet_Three</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Subnet IMU</td>
+            <td align=center>79</td>
+            <td align=center>121</td>
+            <td align=center>CB</td>
+            <td align=center>203</td>
+            <td align=center>7</td>
+            <td align=center>IP_One</td>
+            <td align=center>IP_Two</td>
+            <td align=center>IP_Three</td>
+            <td align=center>IP_Four</td>
+            <td align=center>Subnet_One</td>
+            <td align=center>Subnet_Two</td>
+            <td align=center>Subnet_Three</td>
+            <td align=center>CRC</td>
+        </tr>
+        <tr>
+            <td align=center>Subnet GPS</td>
+            <td align=center>78</td>
+            <td align=center>120</td>
+            <td align=center>CB</td>
+            <td align=center>203</td>
+            <td align=center>7</td>
+            <td align=center>IP_One</td>
+            <td align=center>IP_Two</td>
+            <td align=center>IP_Three</td>
+            <td align=center>IP_Four</td>
+            <td align=center>Subnet_One</td>
+            <td align=center>Subnet_Two</td>
+            <td align=center>Subnet_Three</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## Hardware message
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>...</th>
+            <th nowrap align=center>Byte n-1</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Hardware Message</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>DD</td>
+            <td align=center>221</td>
+            <td align=center></td>
+            <td align=center>Duration [s]</td>
+            <td align=center>Color</td>
+            <td align=center>Message</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## Nudge by machine
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>PGN Name</th>
+            <th nowrap align=center>Src</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>PGN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Len</th>
+            <th nowrap align=center>Byte 5</th>
+            <th nowrap align=center>Byte 6</th>
+            <th nowrap align=center>Byte 7</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Nudge by Machine</td>
+            <td align=center>7F</td>
+            <td align=center>127</td>
+            <td align=center>DE</td>
+            <td align=center>222</td>
+            <td align=center></td>
+            <td align=center>Mask</td>
+            <td align=center>Left/right</td>
+            <td align=center>CRC</td>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<br>
+
+## Subnet Reply to AgIO
+
+<table>
+    <thead>
+        <tr>
+            <th nowrap align=center>Module</th>
+            <th nowrap align=center>MAC</th>
+            <th nowrap align=center>IP</th>
+            <th nowrap align=center>IN</th>
+            <th nowrap align=center>Dec</th>
+            <th nowrap align=center>Out</th>
+            <th nowrap align=center>Dec</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align=center>Steer Module</td>
+            <td align=center>7E</td>
+            <td align=center>126</td>
+            <td align=center>FE</td>
+            <td align=center>254</td>
+            <td align=center>FD</td>
+            <td align=center>253</td>
+        </tr>
+        <tr>
+            <td align=center>Machine Module</td>
+            <td align=center>7B</td>
+            <td align=center>123</td>
+            <td align=center>EF</td>
+            <td align=center>239</td>
+            <td align=center>ED</td>
+            <td align=center>237</td>
+        </tr>
+        <tr>
+            <td align=center>IMU Module</td>
+            <td align=center>79</td>
+            <td align=center>121</td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center>D3</td>
+            <td align=center>211</td>
+        </tr>
+        <tr>
+            <td align=center>GPS Module</td>
+            <td align=center>7C</td>
+            <td align=center>124</td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+            <td align=center></td>
+        </tr>
+    </tbody>
+</table>

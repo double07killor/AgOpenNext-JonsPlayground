@@ -1,5 +1,5 @@
 ---
-title: ADR 14-001 — Standardize Build Environment & Tooling
+title: ADR 14-001 - Standardize Build Environment & Tooling
 version: 0.1.0
 status: Draft
 authors:
@@ -12,97 +12,35 @@ approvers:
 created: 2025-10-25
 last_reviewed: 2025-10-25
 review_cycle: Annual
-notes: Build & CI governance; metadata aligned with template.
+notes: Build & CI governance.
 ---
 
-# 14-ADR-001 — Standardize Build Environment & Tooling
-*(Status: Draft — 2025-10-25)*
+# ADR 14-001 - Standardize Build Environment & Tooling
+*(Status: Draft - 2025-10-25)*
 
-**Section ID:** 14 | **Version:** 0.1.0  
-**Related SRS:** `14_Build_Environment_Tooling.md`  
-**Related Options:**  
-**Upstream Dependencies:** 12 — Development Language & Runtime  
-**Downstream Impacts:** 96 — Quality Engineering & Release, 9X — Frontends & Ops
+## Context
 
-## 1) Context  
+Sections 11 and 12 mandate reproducible, cross-platform builds; the charter’s release criteria (see §5, D5) require smoke suites on Windows/Linux and documented parity before promoting new tiers. Legacy tooling relied on manual setup and inconsistent signing, so shared scripts, containers, and secrets are necessary.
 
-Section 14 establishes the requirement for reproducible, secure builds that mirror the CI pipelines used across Windows and Linux.  
-Historical AgOpenGPS builds relied on ad-hoc local environments, manual signing, and inconsistent container images.  
+## Decision
 
-With Windows / Linux parity mandated in `11-ADR-001` and the unified .NET 10 runtime adopted in `12-ADR-001`, AgOpenNext must now ensure deterministic outputs, automated signing, and documented bootstrap workflows that function identically in both developer and CI environments.
+Standardize around pinned toolchains, vault-based signing, cross-platform bootstrap scripts, and dual Windows/Linux CI workflows. Container images used by developers and CI must match.
 
-Current builds use **Visual Studio Code**, **.NET 10 SDK**, and **GitHub Actions** for continuous integration, making those the foundation for this standardization.
+## Consequences
 
----
+- Reproducible, signed artifacts improve trust.
+- Bootstrap scripts reduce onboarding friction.
+- Dual-lane CI extends runtime but ensures parity before merges.
 
-## 2) Decision  
+## Follow-Up
 
-Standardize the **AgOpenNext build environment** around shared scripts, container images, and vault-managed secrets:  
+- Validate bootstrap scripts on clean Windows and Linux machines.
+- Record container image tags and rebuild cadence.
+- Document vault policies and SBOM publication steps.
 
-- **Pinned toolchains:** Lock .NET SDK, analyzers, and container bases in repository manifests so CI and local builds produce identical artifacts.  
-- **Cross-platform bootstrap:** Provide `tools/scripts/AgOpenNext.*` scripts that install .NET 10 SDK, required dependencies, and analyzers within ≈ 10 minutes.
-- **Dual-lane CI:** Run Windows + Linux smoke builds on every PR via GitHub Actions, including signing verification and SBOM generation.  
-- **Vault-based signing:** Store all signing keys and credentials in a secure vault issuing short-lived tokens to CI jobs only.  
-- **Container parity:** Maintain a single Dev Container / base image reused by both developers and CI runners.  
-
-This ADR becomes *Accepted* once release engineering verifies that bootstrap scripts and dual-lane builds successfully generate identical, signed packages for Section 11 deliverables.
-
----
-
-## 3) Consequences  
-
-### Positive Impacts  
-- Reproducible builds across all environments.  
-- Automated signing + SBOM validation improve supply-chain security.  
-- Faster onboarding and reduced configuration drift.  
-
-### Trade-offs / Mitigations  
-- **Initial containerization effort:** Offset by reusing Section 11 Linux packaging work.  
-- **Vault integration complexity:** Provide mock signing for developer tests.  
-- **Longer CI times:** Use caching and job parallelization to mitigate.  
-
----
-
-## 4) Rationale  
-
-Standardizing build tooling enforces the same guarantees that runtime and OS governance provide: determinism, security, and traceability.  
-GitHub Actions offers sufficient isolation and reproducibility for AgOpenNext without maintaining separate build infrastructure.  
-Unified scripts, container bases, and vault integration ensure that every contributor or CI job can produce verifiable artifacts identical to release builds.  
-
----
-
-## 5) Open Questions  
-
-| ID | Question | Owner | Resolution Path |
-|----|-----------|--------|-----------------|
-| **ADR14-Q1** | What level of macOS support is required for companion or cross-builds? | Platform Foundations WG | Coordinate with Section 13 companion roadmap. |
-| **ADR14-Q2** | Which container registry will host official CI / release images? | Release WG | Compare GitHub Container Registry vs. self-hosted. |
-| **ADR14-Q3** | How are SBOMs published and versioned across releases? | Security WG | Integrate SPDX generation into the §96 release pipeline. |
-
----
-
-## 6) Acceptance Checklist  
-
-- [ ] Bootstrap scripts validated on fresh Windows + Linux environments.  
-- [ ] GitHub Actions lanes produce signed artifacts and publish verification logs.  
-- [ ] Container images documented with rebuild cadence + CVE tracking.  
-- [ ] Vault integration playbook approved by the Security WG.  
-
----
-
-## 7) Governance  
-
-- **Ownership:** Release & Tooling Working Group  
-- **Review Cadence:** Semi-annual or upon new .NET LTS / GitHub Actions image revisions  
-- **Artifacts:** `global.json`, `Dockerfile.dev`, `.github/workflows/*.yml`, `vault-policy.md`, and reproducibility dashboards  
-- **Exit Criteria:** Superseded by a newer ADR expanding to additional CI platforms or alternative build systems (e.g., Bazel/Nix).  
-
----
-
-## Appendix: Change Log
+## Change Log
 
 | Version | Date | Changes | Author | PR / Issue |
 |---------|------|---------|--------|------------|
-| 0.1.0 | 2025-10-25 | Initial draft defining standardized VS Code + GitHub Actions + Vault build environment. | Nexus Team (Codex) |  |
-| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix per policy. | Jon Fortney |  |
-
+| 0.1.0 | 2025-11-09 | Focused ADR on shared toolchain tasks. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-10-25 | Initial standardization draft. | Nexus Team (Codex) |  |

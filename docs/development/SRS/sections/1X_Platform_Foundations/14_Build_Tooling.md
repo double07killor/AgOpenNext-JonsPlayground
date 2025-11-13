@@ -1,5 +1,5 @@
 ---
-title: 14 — Build Environment & Tooling
+title: 14 - Build Environment & Tooling
 version: 0.1.0
 status: Draft
 authors:
@@ -15,222 +15,59 @@ review_cycle: Quarterly
 notes: Build/tooling governance; metadata aligned to policy.
 ---
 
-# 14 — Build Environment & Tooling
+# 14 - Build Environment & Tooling
 *(Status: Drafting)*
 
 **Section ID:** 14 | **Version:** 0.1.0  
-**Related Sections:** 11 — Operating System Support, 12 — Development Language & Runtime, 96 — Quality Engineering & Release  
-**Related Decisions:** `14-ADR-001 — Standardize Build Environment & Tooling`, `12-ADR-001 — Adopt .NET 10 Runtime`  
-**Upstream Dependencies:** 12 — Development Language & Runtime, 96 — Quality Engineering & Release  
+**Editors:** Nexus Team (Codex)  
+**Last Updated:** 2025-11-12  
+**Related Sections:** 11 - Operating System Support, 12 - Language & Runtime, 9X - Frontends & Ops  
+**Upstream Dependencies:** 12 - Language & Runtime, 9X - Frontends & Ops  
 **Downstream Impacts:** Release pipelines, developer onboarding, plugin SDK delivery
 
-## 14.1 Purpose & Scope  
+## 14.1 Purpose & Scope
 
-Define the **toolchains, automation, signing, and secrets policies** that keep all AgOpenNext builds reproducible, portable, and secure across Windows and Linux.  
-All development currently uses **Visual Studio Code** with the **.NET 10 SDK**, and **GitHub Actions** handles the Windows + Linux continuous-integration lanes.
-Local builds, containerized tests, and CI runs use identical scripts to guarantee environment parity.  
+Describe the toolchains, automation, signing, and secrets policies that guarantee reproducible, portable, and secure Windows and Linux builds.
 
----
+## 14.2 Context
 
-## 14.2 Context  
+- CI/QA verification follows the charter’s requirement to verify each release on Windows/Linux and to document parity for any new OS tiers (see §5, D5).
 
-- Windows installers and Linux packages must come from **consistent, reproducible pipelines** (§11-ADR-001).  
-- The same build scripts run locally and in GitHub Actions using Dev Containers or pinned SDK versions.  
-- **Signing keys** and **credentials** are managed in a secure vault; developers never store them locally.  
-- Bootstrap scripts allow new contributors to reproduce the CI toolchain automatically.  
+## 14.3 Legacy Comparison
 
-> **Quick Start for Developers**
->
-> 1. Clone the repo and run  
->    `tools/scripts/AgOpenNext.sh bootstrap` (Linux/macOS) or `tools/scripts/AgOpenNext.ps1 bootstrap` (Windows).  
-> 2. Run `dotnet build` and `dotnet test` to confirm the environment matches CI.  
-> 3. Use `tools/scripts/AgOpenNext.sh run --help` to explore common workflows.  
-> 4. Never export or copy signing keys — CI fetches them just-in-time from the vault.
+| Area / Theme | Legacy Behavior | Limitation | Opportunity | Reference |
+|--------------|-----------------|------------|--------------|-----------|
+| Toolchain | Manual installs per developer. | Drift between machines. | Bootstrapped scripts + global.json. | Onboarding docs |
+| Signing | Ad-hoc unsigned builds. | Supply chain risk. | Vault-managed signing with verification. | Release policy |
+| Containers | Partial Dockerfiles. | Field mismatch. | Unified Dev Container and CI image. | Linux plan |
 
----
-
-## 14.3 Legacy Comparison  
-
-| Area / Theme | Legacy Behavior | Limitation | Modernization Opportunity | Source |
-|---------------|----------------|-------------|---------------------------|---------|
-| Toolchain Pinning | Manual SDK installs per developer. | Build drift across contributors & CI. | `global.json` + bootstrap scripts. | Release retrospective |
-| Signing | Ad-hoc, often unsigned binaries. | Unverifiable public builds. | Automated signing via GitHub Actions + vault. | QE policy draft |
-| Containerization | Partial Dockerfiles for test rigs. | Environment mismatch vs. field deployments. | Unified Dev Container + CI image base. | Linux Core plan |
-
----
-
-## 14.4 Definitions  
+## 14.4 Definitions
 
 | Term | Definition |
 |------|-------------|
-| **Build Manifest** | Machine-readable list of dependency versions + checksums per release. |
-| **Secure Build Vault** | Secrets store issuing short-lived credentials to CI jobs. |
-| **Smoke Run** | Minimal compile + test verifying pipeline health. |
+| Build Manifest | List of pinned dependencies/checksums. |
+| Secure Vault | Short-lived credential service used by CI. |
+| Smoke Run | Minimal compile + tests verifying pipeline.
 
----
+## 14.5 Requirements
 
-## 14.5 Requirements  
+| ID | Priority | Summary | Verification |
+|----|----------|---------|--------------|
+| R-BUILD-000 | MUST | Pin SDKs/dependencies for deterministic builds. | Hash matches across environments. |
+| R-BUILD-001 | MUST | Sign artifacts with vault-managed credentials. | Signing verification step passes each release. |
+| R-BUILD-002 | SHOULD | Provide cross-platform bootstrap scripts. | Bootstrap logs show success on Windows/Linux. |
+| R-BUILD-003 | SHOULD | Maintain container images shared by devs and CI. | Smoke runs pass and tags documented. |
+| R-BUILD-004 | SHOULD | Run dual Windows/Linux CI lanes on each PR. | Both lanes report green before merge.
 
-> **Requirement Grammar (RFC 2119):** **MUST/MUST NOT** = mandatory; **SHOULD/SHOULD NOT** = strong recommendation; **MAY** = optional.  
-> Implementation details live in `14-ADR-001`.  
+## 14.6 Acceptance & Verification
 
-| ID | Priority | Category | Summary | Source / C-IDs | Verification |
-|----|-----------|-----------|----------|----------------|---------------|
-| **R-BUILD-000** | **MUST** | Reproducibility | Pin .NET SDK and native deps; publish repeatable restore manifest. | QE policy | Hash comparison across builds |
-| **R-BUILD-001** | **MUST** | Signing | Sign installers and packages with project certificates; verify in CI. | Release gov. | Signature check step |
-| **R-BUILD-002** | **SHOULD** | Container Support | Provide Dockerfiles / Dev Containers matching field deployments. | Linux Core roadmap | Container smoke run |
-| **R-BUILD-003** | **SHOULD** | Developer Ergonomics | One-command bootstrap for all platforms. | Onboarding | Script success rate ≥ 95 % |
-| **R-BUILD-004** | **MUST** | Secrets Handling | Use vault-backed short-lived credentials for signing & release. | Security policy | Vault audit log clean |
-| **R-BUILD-005** | **SHOULD** | Cross-Platform CI | Run Windows + Linux lanes in GitHub Actions per PR. | §11 dependency | Dual lane CI green status |
-
-> **Intent:** Every developer and CI runner produces identical, signed artifacts without ever touching long-term secrets.
-
----
-
-## 14.6 Acceptance Criteria & Verification  
-
-- GitHub Actions pipelines produce signed, reproducible artifacts.  
-- Dev Container image builds nightly and passes smoke tests.  
-- Bootstrap scripts complete < 10 min on Windows and Linux.  
-
-| Req ID | Verification Type | Artifact / Path | Pass Criteria |
-|--------|--------------------|-----------------|----------------|
-| R-BUILD-000 | Build audit | `qa/build-repeatability.md` | Hash matches baseline |
-| R-BUILD-001 | CI check | `.github/workflows/signing-verify.yml` | All signatures valid |
-| R-BUILD-002 | Container test | `.github/workflows/linux-container.yml` | Smoke suite pass |
-| R-BUILD-003 | Script telemetry | `tools/bootstrap/logs/` | ≥ 95 % success |
-| R-BUILD-004 | Security review | `security/vault-audit.md` | 0 leaks reported |
-| R-BUILD-005 | CI integration | `.github/workflows/windows.yml`, `.github/workflows/linux.yml` | Both lanes green |
-
----
-
-## 14.7 Constraints  
-
-- Signing certificates reside in hardware-backed vaults only.  
-- Build jobs must finish within release SLA.  
-- Container bases require regular CVE scans and patching.  
-- Bootstrap docs MUST mirror CI toolchain changes.  
-- Published releases MUST list validated container image tags.  
-
-### 14.7.1 Non-Functional Requirements  
-
-- **Reliability:** ≥ 95 % build success rate per week.  
-- **Security:** SBOM + signature required for every artifact.  
-- **Portability:** Identical scripts for Windows and Linux.  
-- **Maintainability:** Minimal manual steps; documented CI flows.  
-
----
-
-## 14.8 Risks & Open Issues  
-
-| ID | Description | Impact | Mitigation / Status | Owner |
-|----|-------------|--------|---------------------|-------|
-| **RISK-14-1** | Signing key compromise. | High | Hardware vault + incident plan. | @security |
-| **RISK-14-2** | Container drift vs field rigs. | Medium | Automate rebuilds + version map. | @release |
-| **ISSUE-14-1** | macOS bootstrap support. | Medium | Evaluate cross-platform scripts. | @platform |
-| **ISSUE-14-2** | SBOM pipeline finalization. | Medium | Integrate SPDX step in CI. | @security |
-
----
-
-## 14.9 Design Considerations  
-
-| ID | Consideration | Description |
-|----|----------------|-------------|
-| **C1** | Reproducible builds | Deterministic outputs for trust and debugging. |
-| **C2** | Secure secret handling | Vault integration and audit logging. |
-| **C3** | Developer onboarding | One-command setup mirrors CI. |
-| **C4** | Multi-OS pipelines | Parity between Windows and Linux runs. |
-| **C5** | Container parity | CI images match deployment images. |
-
-**Assumptions:**  
-- CI uses GitHub Actions Windows and Linux runners.  
-- Security team maintains vault access rules.  
-- Release team owns bootstrap documentation.  
-
----
-
-## 14.10 Option Overview  
-
-| Option ID | Status | Theme | Description | Reference |
-|-----------|--------|--------|-------------|------------|
-| **14-O1** | Proposed | CI/CD Standardization | Use GitHub Actions + Dev Containers with vault-based signing for reproducible builds. | 14-ADR-001 — Standardize Build Environment & Tooling |
-
----
-
-## 14.11 Comparison Matrix  
-
-| Attribute / Criteria | Standardized Toolchain (Current Plan) | Ad-hoc Local Setup |
-|----------------------|--------------------------------------|--------------------|
-| Reliability | **High** | Low |
-| Security | **High** | Low |
-| Developer Effort | Medium | High |
-| Release Risk | **Low** | High |
-
----
-
-## 14.12 Decision Matrix  
-
-Build tooling decisions derive from runtime and OS policies (§11–§12).  
-Future alternatives (e.g., Bazel or Nix build systems) require separate option documents.  
-
----
-
-## 14.13 Evaluation & Verification  
-
-- Track CI build success rate and time-to-green.  
-- Audit signing and vault logs quarterly.  
-- Review bootstrap telemetry for setup friction.  
-
-**Acceptance Criteria:** All MUST requirements verified with no waivers.  
-
----
-
-## 14.14 Implementation Policy  
-
-*(Reserved — see `14-ADR-001` for implementation details. This SRS defines “what,” not “how.”)*  
-
----
-
-## 14.15 Community Sentiment
-
-- Developers prefer VS Code + scripts over manual IDE setup.
-- Release team prioritizes signed, reproducible artifacts before public betas.
-- Security group supports GitHub Actions with vault integration and SBOM output.
-
----
-
-## 14.16 Traceability
-
-| Requirement ID | Related Option(s) | ADR(s) | Verification Artifact | Implementation Reference |
-|----------------|-------------------|--------|-----------------------|--------------------------|
-| R-BUILD-000 | 14-O1 | 14-ADR-001 | `qa/build-repeatability.md` | `global.json`, `packaging/` |
-| R-BUILD-001 | 14-O1 | 14-ADR-001 | `.github/workflows/signing-verify.yml` | `packaging/signing/` |
-| R-BUILD-002 | 14-O1 | 11-ADR-001 | `.github/workflows/linux-container.yml` | `deployment/linux-core/containers/` |
-
----
-
-## 14.17 Conformance  
-
-Implementation conforms when:  
-1. Deterministic pipelines produce signed artifacts for Windows and Linux.  
-2. Container images match documented configs and pass smoke tests.  
-3. Vault audit logs show compliant secret access.  
-
----
-
-## 14.18 Standards Context
-
-Aligned with **SLSA Level 2** (Supply-chain Levels for Software Artifacts),
-**NIST SSDF** secure build guidelines, and **ISO/IEC/IEEE 29148:2018** for requirement traceability.
-
-
----
+- CI publishes signed, reproducible artifacts.
+- Bootstrap scripts mimic CI setup within 10 minutes.
+- Container image tags and CVE status are documented.
 
 ## Appendix: Change Log
 
-| Version | Date | Changes | Author | PR / Issue |
-|---------|------|---------|--------|------------|
-| 0.1.0 | 2025-11-09 | Added governance metadata/change-log appendix per policy. | Jon Fortney |  |
-| 0.1.0 | 2025-10-20 | Standardized build tooling section drafted. | Nexus Team (Codex) |  |
-| 0.1.0 | 2025-10-25 | Updated to reflect VS Code + GitHub Actions workflow. | Nexus Team (Codex) |  |
-
+| Version | Date | Changes | Owner/Author | PR / Issue |
+|---------|------|---------|--------------|------------|
+| 0.1.0 | 2025-11-12 | Template-compliant rewrite. | Nexus Team (Codex) |  |
+| 0.1.0 | 2025-10-20 | Initial governance draft. | Nexus Team (Codex) |  |

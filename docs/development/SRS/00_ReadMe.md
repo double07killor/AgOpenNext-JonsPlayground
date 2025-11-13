@@ -76,6 +76,8 @@ Returning contributors can skip straight to sections flagged "Under review" or "
 - [12-ADR-001 — Adopt .NET 10 Runtime](sections/1X_Platform_Foundations/12-ADR-001 - Adopt .NET 10 Runtime.md)
 - [13-ADR-001 — Adopt Avalonia 12 for the Nexus Desktop UI Shell](sections/1X_Platform_Foundations/13-ADR-001 - Adopt Avalonia 12 for the Nexus Desktop UI Shell.md)
 - [14-ADR-001 — Standardize Build Environment & Tooling](sections/1X_Platform_Foundations/14-ADR-001 - Standardize Build Environment & Tooling.md)
+- [11-ADR-002 — Android Full Stack + Companion Candidate](sections/1X_Platform_Foundations/11-ADR-002 - Android Support Candidate.md)
+- [11-ADR-003 — iOS Companion Candidate](sections/1X_Platform_Foundations/11-ADR-003 - iOS Companion Candidate.md)
 
 ### Reference library
 - [Reference library overview](references/README.md)

@@ -1,6 +1,6 @@
 # Data Flow Architecture
 
-This document describes how data flows through the Nexus system, as specified in [SRS Communications Requirements](../../sections/4X_Interprocess_Communications/42_Transports.md) and implemented through [ADR-002: gRPC Contracts](../../sections/4X_Interprocess_Communications/41-ADR-002 - Expose Nexus services over gRPC protobuf contracts.md).
+This document describes how data flows through the Nexus system, as specified in [SRS Communications Requirements](../../sections/4X_Interprocess_Communications/44_Service_APIs.md) and implemented through [ADR-002: gRPC Contracts](../../sections/4X_Interprocess_Communications/41-ADR-002 - Expose Nexus services over gRPC protobuf contracts.md).
 
 ## Core Data Streams
 
@@ -65,7 +65,7 @@ Following [ADR-023: Session/Job Model](../../sections/6X_Core_Domain_Services/62
 
 | Layer | Protocol | Documentation |
 |-------|----------|---------------|
-| UI-Core | gRPC | [Service API contracts](../../sections/4X_Interprocess_Communications/41_Service_APIs_Contracts.md) |
+| UI-Core | gRPC | [Service API contracts](../../sections/4X_Interprocess_Communications/44_Service_APIs.md) |
 | Core-Plugin | gRPC | [Plugin architecture](../../../../Plugins/architecture.md) |
 | Core-Bridge | gRPC | [AgIO subsystem overview](../../../../AgIO/README.md) |
 | Bridge-Hardware | AOG-Link | [External module message & PGN guide](../../../../AgIO/external-module-pgns.md) |
@@ -97,8 +97,8 @@ As defined in [ADR-026: Performance Budgets](../../sections/9X_Frontends_Ops/96-
 
 ## Related Documentation
 
-- [Communications Requirements](../../sections/4X_Interprocess_Communications/42_Transports.md)
+- [Communications Requirements](../../sections/4X_Interprocess_Communications/44_Service_APIs.md)
 - [Data Model Requirements](../../sections/3X_Data_Storage/32_Persistence_Formats.md)
-- [Threading, Scheduling & Timing requirements](../../sections/2X_System_Architecture/23_Threading_Scheduling_Timing.md)
+- [Threading, Scheduling & Timing requirements](../../sections/2X_System_Architecture/24_Threading_Scheduling_Timing.md)
 - [AgIO subsystem overview](../../../../AgIO/README.md)
 - [External module message & PGN guide](../../../../AgIO/external-module-pgns.md)
