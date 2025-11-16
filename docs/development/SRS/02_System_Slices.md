@@ -37,7 +37,7 @@ This index lists every active section in the SRS with quick links. Each section 
 | **2X – System Architecture** |  |  |  |
 | 21 | [Decomposition](sections/2X_System_Architecture/21_System_Decomposition_Boundaries.md) | Who owns what: Core, AgIO, UI, plugins. | **Upstream:** 11–13  **Downstream:** 22, 41, 42 |
 | 22 | [Process Model](sections/2X_System_Architecture/22_Process_Model_Deployment.md) | In-proc, split-core, remote, containers. | **Upstream:** 21  **Downstream:** 41, 42 |
-| 23 | [Units & Coordinates](sections/2X_System_Architecture/23_Units_Conventions_Coordinate_Systems.md) | SI/imperial, angles, time, CRS. | **Upstream:** 21–22  **Downstream:** 23, 31, 61, 71 |
+| 23 | [Units & Coordinates](sections/2X_System_Architecture/23_Units_Conventions_Coordinate_Systems.md) | SI/imperial, angles, time, CRS conventions. | **Upstream:** 21–22  **Downstream:** 31, 61, 71 |
 | 24 | [Timing](sections/2X_System_Architecture/24_Threading_Scheduling_Timing.md) | Clocks, latency budgets, scheduling. | **Upstream:** 21–22  **Downstream:** 61, 62, 42 |
 | **3X – Data Storage** |  |  |  |
 | 31 | [Domain Data Model](sections/3X_Data_Storage/31_Domain_Data_Model.md) | Farm → season → job → session hierarchies, field data, provenance. | **Upstream:** 21, 26  **Downstream:** 32, 35 |
