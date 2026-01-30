@@ -1,0 +1,89 @@
+{
+  "rootId": "tractor-rear-axle",
+  "steerAxleId": "tractor-front-axle",
+  "nodes": [
+    {
+      "id": "tractor-rear-axle",
+      "type": "axle",
+      "parentId": null,
+      "translation": [0, 0, 0],
+      "rotation": [0, 0, 0, 1],
+      "axle": {
+        "trackWidthMeters": 2.2,
+        "maxSteerAngleRad": 0.6,
+        "isDriven": true,
+        "isSteered": false
+      },
+      "drawbar": null
+    },
+    {
+      "id": "tractor-front-axle",
+      "type": "axle",
+      "parentId": "tractor-rear-axle",
+      "translation": [2.8, 0, 0],
+      "rotation": [0, 0, 0, 1],
+      "axle": {
+        "trackWidthMeters": 2.2,
+        "maxSteerAngleRad": 0.6,
+        "isDriven": false,
+        "isSteered": true
+      },
+      "drawbar": null
+    },
+    {
+      "id": "drawbar-1",
+      "type": "drawbar",
+      "parentId": "tractor-rear-axle",
+      "translation": [-1.2, 0, 0],
+      "rotation": [0, 0, 0, 1],
+      "axle": null,
+      "drawbar": {
+        "lengthMeters": 3.0,
+        "limits": {
+          "yawMinRad": -0.6,
+          "yawMaxRad": 0.6,
+          "pitchMinRad": 0,
+          "pitchMaxRad": 0,
+          "rollMinRad": 0,
+          "rollMaxRad": 0
+        }
+      }
+    },
+    {
+      "id": "implement-axle",
+      "type": "axle",
+      "parentId": "drawbar-1",
+      "translation": [-3.0, 0, 0],
+      "rotation": [0, 0, 0, 1],
+      "axle": {
+        "trackWidthMeters": 3.0,
+        "maxSteerAngleRad": 0.0,
+        "isDriven": false,
+        "isSteered": false
+      },
+      "drawbar": null
+    }
+  ],
+  "attachments": [
+    {
+      "id": "gnss-1",
+      "parentId": "tractor-rear-axle",
+      "type": "gnss",
+      "translation": [0.3, 0.1, 2.5],
+      "rotation": [0, 0, 0, 1]
+    },
+    {
+      "id": "imu-1",
+      "parentId": "tractor-rear-axle",
+      "type": "imu",
+      "translation": [0.0, 0.0, 1.2],
+      "rotation": [0, 0, 0, 1]
+    }
+  ],
+  "rows": {
+    "parentId": "implement-axle",
+    "rowCount": 6,
+    "rowSpacingMeters": 0.76,
+    "shutoffOffsetMeters": 1.0
+  }
+}

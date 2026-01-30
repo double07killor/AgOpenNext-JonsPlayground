@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AgNext.UI\AgNext.UI.csproj" />
+  </ItemGroup>
+
+  <Target Name="CopyPluginToUiOutput" AfterTargets="Build">
+    <PropertyGroup>
+      <UiPluginDir>$(MSBuildProjectDirectory)\..\AgNext.UI\bin\$(Configuration)\$(TargetFramework)\plugins\ui\</UiPluginDir>
+    </PropertyGroup>
+    <MakeDir Directories="$(UiPluginDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(UiPluginDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(UiPluginDir)" SkipUnchangedFiles="true" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+  </Target>
+
+</Project>

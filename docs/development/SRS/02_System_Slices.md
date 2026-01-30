@@ -30,6 +30,7 @@ This index lists every active section in the SRS with quick links. Each section 
 | ID | Section | Scope | Dependencies / sequencing hints |
 |----|---------|-------|----------------------------------|
 | **1X – Platform Foundations** |  |  |  |
+| 10 | [Safety & Fail-Safe](sections/1X_Platform_Foundations/10_Safety_Fail_Safe.md) | Safety gates, fail-safe behavior, and operator protection policies. | **Upstream:** —  **Downstream:** 22, 42, 83 |
 | 11 | [OS Support](sections/1X_Platform_Foundations/11_OS_Support.md) | Supported OSes, deployment models, baseline hardware assumptions. | **Upstream:** —  **Downstream:** 12, 21, 52 |
 | 12 | [Language & Runtime](sections/1X_Platform_Foundations/12_Development_Language_Runtime.md) | Managed runtime policy, language versions, dependency governance. | **Upstream:** 11  **Downstream:** 14, 21, 53, 94 |
 | 13 | [UI Framework & UX](sections/1X_Platform_Foundations/13_UI_Framework_UX.md) | Cross-platform UI stack, MVVM patterns, theming conventions. | **Upstream:** 11–12  **Downstream:** 71 (shell), 72 (maps) |

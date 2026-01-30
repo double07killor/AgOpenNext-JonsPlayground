@@ -65,6 +65,7 @@ Returning contributors can skip straight to sections flagged "Under review" or "
 - [Working notes](NOTES.md)
 
 ### Section catalog
+- [10 — Safety & Fail-Safe](sections/1X_Platform_Foundations/10_Safety_Fail_Safe.md)
 - [11 — OS Support](sections/1X_Platform_Foundations/11_OS_Support.md)
 - [12 — Language & Runtime](sections/1X_Platform_Foundations/12_Development_Language_Runtime.md)
 - [13 — UI Framework & UX](sections/1X_Platform_Foundations/13_UI_Framework_UX.md)
@@ -149,6 +150,7 @@ Returning contributors can skip straight to sections flagged "Under review" or "
 
 ## Traceability matrix
 _This matrix links every requirement (R-) to the options, references, and eventual ADR homes that will satisfy it. “TBD” ADRs signal where future decisions will land once validation gates are met._
+- [Traceability matrix](TRACEABILITY_MATRIX.md)
 
 
 
